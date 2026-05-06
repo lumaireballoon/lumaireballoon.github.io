@@ -1,1 +1,23 @@
 <img src="start.gif" width="80%">
+style>
+    /* 1. 移除網頁四周所有預設的白邊 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* 防止手機版左右晃動 */
+    }
+
+    /* 2. 針對您的 Canva 圖片設定 */
+    img {
+        width: 100%;        /* 強制寬度填滿螢幕 */
+        height: auto;       /* 高度自動依比例縮放 */
+        display: block;     /* 消除圖片下方微小的間隙 */
+        object-fit: cover;  /* 讓圖片像背景一樣填滿，不留黑邊 */
+    }
+</style>
