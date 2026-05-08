@@ -1,33 +1,96 @@
-<style>
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* 1. 徹底移除網頁預設白邊 */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden; /* 防止左右晃動 */
-            background-color: #f4ece1; /* 建議填入您圖片的米色底色，避免載入時閃白 */
+        /* 1. 基礎設定：消除邊界與防止捲動 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; overflow-x: hidden; background-color: #ffffff; font-family: sans-serif; }
+
+        /* 2. 固定式頁首與縮小動畫設定 */
+        .header-container {
+            width: 100vw;
+            padding: 30px 0 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: fixed; /* 固定在最上方 */
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95); /* 半透明白底 */
+            z-index: 1000;
+            transition: all 0.4s ease;
         }
 
-        /* 2. 讓圖片強制滿版 */
-        .full-screen-img {
-            width: 100vw;       /* 寬度等於螢幕 100% */
-            display: block;     /* 移除圖下方間隙 */
-            margin: 0;
-            padding: 0;
+        /* 下滑時自動縮小 */
+        .header-container.shrink {
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo-area { text-align: center; transition: all 0.4s ease; }
+        .header-container.shrink .logo-area { transform: scale(0.85); margin-bottom: 5px; }
+
+        .logo-name { font-size: 32px; color: #8d7a66; letter-spacing: 1px; font-weight: 300; }
+        .logo-sub { font-size: 14px; color: #bca085; letter-spacing: 4px; }
+
+        /* 搜尋列 */
+        .search-bar { display: flex; align-items: center; width: 85%; max-width: 450px; transition: all 0.4s ease; }
+        .header-container.shrink .search-bar { transform: scale(0.9); }
+
+        .search-input-wrapper { flex: 1; display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 50px 0 0 50px; padding: 8px 15px; background: white; }
+        .search-input-wrapper input { border: none; outline: none; width: 100%; font-size: 16px; }
+        .search-btn { background-color: #8d7a66; color: white; border: none; padding: 9px 22px; border-radius: 0 50px 50px 0; cursor: pointer; }
+
+        /* 3. 影片與內容區：解決電腦模糊 */
+        .content-area { margin-top: 180px; } /* 推開固定頁首的距離 */
+        .full-width-media { 
+            width: 100vw; 
+            display: block; 
             border: none;
+            image-rendering: -webkit-optimize-contrast; 
         }
     </style>
 </head>
 <body>
 
-    <img src="start.gif" class="full-screen-img">
+    <div class="header-container" id="myHeader">
+        <div class="logo-area">
+            <div class="logo-name">lumaireballoon</div>
+            <div class="logo-sub">藝術空間</div>
+        </div>
+        <div class="search-bar">
+            <div class="search-input-wrapper">
+                <span>🔍</span>
+                <input type="text" placeholder="產品名稱">
+            </div>
+            <button class="search-btn">搜尋</button>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="full-width-media"
+        >
+            <source src="start.mp4" type="video/mp4">
+            您的瀏覽器不支援影片播放。
+        </video>
+    </div>
+
+    <script>
+        window.onscroll = function() {
+            var header = document.getElementById("myHeader");
+            if (document.documentElement.scrollTop > 50) {
+                header.classList.add("shrink");
+            } else {
+                header.classList.remove("shrink");
+            }
+        };
+    </script>
 
 </body>
 </html>
-<style>
