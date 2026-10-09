@@ -1,6 +1,124 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+    <!-- 左上角漢堡選單按鈕 -->
+<div class="hamburger-menu" onclick="toggleMenu()">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+
+<!-- 側邊抽屜選單 -->
+<nav class="sidebar" id="sidebar">
+  <div class="close-btn" onclick="toggleMenu()">&times;</div>
+  <ul>
+    <li><a href="#">首頁</a></li>
+    <li><a href="#">關於我們</a></li>
+    <li><a href="#">商品列表</a></li>
+    <li><a href="#">最新消息</a></li>
+    <li><a href="#">聯絡我們</a></li>
+  </ul>
+</nav>
+
+<!-- 點擊遮罩（點擊選單外部可關閉） -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    /* 漢堡按鈕圖示（固定在左上角） */
+.hamburger-menu {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.hamburger-menu .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #8c7361; /* 搭配你網站文字的大地色系 */
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* 側邊選單本體 */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px; /* 預設隱藏在螢幕左側外 */
+  width: 250px;
+  height: 100%;
+  background-color: #faf7f2; /* 溫和的奶白色背景 */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: 1001;
+  padding-top: 60px;
+}
+
+.sidebar.active {
+  left: 0; /* 展開選單 */
+}
+
+/* 關閉按鈕 (X) */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #8c7361;
+  cursor: pointer;
+}
+
+/* 選單連結樣式 */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 30px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #5c4d42;
+  font-size: 16px;
+  display: block;
+  transition: color 0.2s;
+}
+
+.sidebar ul li a:hover {
+  color: #a88b74;
+}
+
+/* 背景半透明遮罩 */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+.overlay.active {
+  display: block;
+}
+    <script>
+  function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  }
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
