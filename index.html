@@ -111,7 +111,7 @@
       display: block;
     }
 
-    /* 搜尋列與標題樣式調整 */
+    /* 標題區域 */
     .title-area h1 {
       margin: 0;
       font-size: 24px;
@@ -126,6 +126,7 @@
       letter-spacing: 2px;
     }
 
+    /* 搜尋列與按鈕樣式修正 */
     .search-box {
       display: flex;
       justify-content: center;
@@ -136,19 +137,32 @@
 
     .search-box input {
       width: 100%;
-      padding: 8px 15px;
+      height: 38px;          /* 固定輸入框高度 */
+      padding: 0 15px;
       border: 1px solid #ddd;
       border-radius: 20px 0 0 20px;
       outline: none;
+      box-sizing: border-box;
+      font-size: 14px;
     }
 
     .search-box button {
-      padding: 8px 20px;
+      height: 38px;          /* 與輸入框維持一致高度，防止爆開 */
+      padding: 0 18px;       /* 按鈕左右舒適寬度 */
       border: none;
       background-color: #8c7361;
       color: white;
-      border-radius: 0 20px 20px 0;
+      border-radius: 0 19px 19px 0; /* 保持原有的右側圓角造型 */
       cursor: pointer;
+      white-space: nowrap;   /* 強制「搜尋」文字橫排不換行 */
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .search-box button:hover {
+      background-color: #735d4d;
     }
   </style>
 </head>
