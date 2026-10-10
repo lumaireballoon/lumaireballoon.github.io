@@ -56,6 +56,7 @@
       transition: left 0.3s ease;
       z-index: 1001;
       padding-top: 60px;
+      overflow-y: auto;
     }
 
     .sidebar.active {
@@ -72,7 +73,7 @@
       cursor: pointer;
     }
 
-    /* 選單連結樣式 */
+    /* 選單清單樣式 */
     .sidebar ul {
       list-style: none;
       padding: 0;
@@ -80,19 +81,62 @@
     }
 
     .sidebar ul li {
-      padding: 15px 30px;
+      border-bottom: 1px solid rgba(140, 115, 97, 0.1);
     }
 
-    .sidebar ul li a {
+    .sidebar ul li a, 
+    .sidebar .dropdown-btn {
       text-decoration: none;
       color: #5c4d42;
       font-size: 16px;
-      display: block;
-      transition: color 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      width: 100%;
+      box-sizing: border-box;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: color 0.2s, background-color 0.2s;
     }
 
-    .sidebar ul li a:hover {
+    .sidebar ul li a:hover,
+    .sidebar .dropdown-btn:hover {
       color: #a88b74;
+      background-color: rgba(140, 115, 97, 0.05);
+    }
+
+    /* 商品列表展開的子選單樣式 */
+    .dropdown-container {
+      display: none;
+      background-color: rgba(140, 115, 97, 0.04);
+      padding-left: 15px;
+    }
+
+    .dropdown-container.active {
+      display: block;
+    }
+
+    .dropdown-container li {
+      border-bottom: none;
+    }
+
+    .dropdown-container a {
+      font-size: 14px;
+      padding: 12px 25px;
+      color: #735d4d;
+    }
+
+    /* 下拉箭頭圖示旋轉效果 */
+    .arrow {
+      transition: transform 0.3s ease;
+      font-size: 12px;
+    }
+    .dropdown-btn.active .arrow {
+      transform: rotate(180deg);
     }
 
     /* 背景半透明遮罩 */
@@ -335,10 +379,25 @@
     <div class="close-btn" onclick="toggleMenu()">&times;</div>
     <ul>
       <li><a href="#">首頁</a></li>
-      <li><a href="#">關於我們</a></li>
-      <li><a href="#">商品列表</a></li>
       <li><a href="#">最新消息</a></li>
-      <li><a href="#">聯絡我們</a></li>
+      
+      <!-- 可展開的商品列表 -->
+      <li>
+        <button class="dropdown-btn" onclick="toggleDropdown()">
+          <span>商品列表</span>
+          <span class="arrow">▼</span>
+        </button>
+        <ul class="dropdown-container" id="productDropdown">
+          <li><a href="#">氣球柱、拱門、球牆</a></li>
+          <li><a href="#">氣球花束</a></li>
+          <li><a href="#">泡泡球</a></li>
+          <li><a href="#">乳膠氣球</a></li>
+          <li><a href="#">客製化佈置</a></li>
+        </ul>
+      </li>
+
+      <li><a href="#">關於我們</a></li>
+      <li><a href="#">FAQ</a></li>
     </ul>
   </nav>
 
@@ -354,6 +413,15 @@
       
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
+    }
+
+    // 商品列表子選單展開/收合開關
+    function toggleDropdown() {
+      const dropdownBtn = document.querySelector('.dropdown-btn');
+      const dropdownContainer = document.getElementById('productDropdown');
+      
+      dropdownBtn.classList.toggle('active');
+      dropdownContainer.classList.toggle('active');
     }
 
     // 相片區自動滑動邏輯
