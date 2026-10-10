@@ -238,6 +238,130 @@
     }
 
     .fade-text-container h2 {
-      /* 套用文青書法字體，並加大字級與字距 */
       font-family: 'Ma Shan Zheng', cursive, sans-serif;
       font-size: 38px;
+      color: #5c4d42;
+      margin: 0 0 12px 0;
+      letter-spacing: 4px;
+      font-weight: normal;
+    }
+
+    .fade-text-container p {
+      font-size: 14px;
+      color: #8c7361;
+      margin: 0;
+      letter-spacing: 1.5px;
+      line-height: 1.8;
+    }
+
+    /* 漸入動畫 Keyframes */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 響應式調整：手機版改為上下堆疊 */
+    @media (max-width: 768px) {
+      .hero-section {
+        flex-direction: column;
+      }
+      .fade-text-container {
+        text-align: center;
+        width: 100%;
+      }
+      .photo-card {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部區塊 -->
+  <header class="header-container">
+    <!-- 左上角漢堡按鈕 -->
+    <div class="hamburger-menu" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <!-- 標題與搜尋列 -->
+    <div class="title-area">
+      <h1>LumaireBalloon</h1>
+      <p>嶼光製氣</p>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="🔍 產品名稱">
+      <button>搜尋</button>
+    </div>
+  </header>
+
+  <!-- 相片滑動區與右側文青漸入文字區塊 -->
+  <section class="hero-section">
+    <!-- 左側：可手動滑動、自動輪播的相片區 -->
+    <div class="photo-slider-container" id="sliderContainer">
+      <div class="photo-track" id="photoTrack">
+        <div class="photo-card">相片展示區 01<br><span style="font-size:12px; margin-top:5px;">(支援手動左右滑動)</span></div>
+        <div class="photo-card">相片展示區 02</div>
+        <div class="photo-card">相片展示區 03</div>
+      </div>
+    </div>
+
+    <!-- 右側：文青字體吸眼球漸入式文案 -->
+    <div class="fade-text-container">
+      <h2>光影交織</h2>
+      <p>點亮每個浪漫瞬間。<br>以光影與氣球，訂製妳的專屬美學。</p>
+    </div>
+  </section>
+
+  <!-- 側邊選單 -->
+  <nav class="sidebar" id="sidebar">
+    <div class="close-btn" onclick="toggleMenu()">&times;</div>
+    <ul>
+      <li><a href="#">首頁</a></li>
+      <li><a href="#">關於我們</a></li>
+      <li><a href="#">商品列表</a></li>
+      <li><a href="#">最新消息</a></li>
+      <li><a href="#">聯絡我們</a></li>
+    </ul>
+  </nav>
+
+  <!-- 背景遮罩 -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- JavaScript 控制邏輯 -->
+  <script>
+    // 側邊選單開關
+    function toggleMenu() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    // 相片區自動滑動邏輯
+    const track = document.getElementById('photoTrack');
+    let autoSlideInterval = setInterval(() => {
+      const cardWidth = track.querySelector('.photo-card').offsetWidth + 15;
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+    }, 3000);
+
+    // 手動觸控或滑動時暫停自動輪播
+    track.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
+    track.addEventListener('mousedown', () => clearInterval(autoSlideInterval));
+  </script>
+
+</body>
+</html>
