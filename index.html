@@ -171,22 +171,22 @@
     }
 
     /* ==========================================
-       相片區與文青 Slogan 區塊版面 (Hero Section)
+       相片區與文青 Slogan 區塊版面（改為上下直列）
        ========================================== */
     .hero-section {
       display: flex;
+      flex-direction: column; /* 改為直列上下排列 */
       align-items: center;
-      justify-content: space-between;
-      max-width: 1100px;
+      max-width: 800px;
       margin: 30px auto;
       padding: 0 20px;
-      gap: 30px;
+      gap: 25px;
       box-sizing: border-box;
     }
 
     /* 1. 相片滑動區 */
     .photo-slider-container {
-      flex: 1.2;
+      width: 100%;
       position: relative;
       overflow: hidden;
       border-radius: 12px;
@@ -214,7 +214,7 @@
 
     .photo-card {
       flex: 0 0 100%;
-      height: 280px;
+      height: 320px; /* 直列後可稍微增加高度讓圖片更大器 */
       scroll-snap-align: center;
       background-color: #e6dfd5;
       border-radius: 8px;
@@ -227,10 +227,10 @@
       border: 2px dashed #b5a493;
     }
 
-    /* 2. 右側文青漸入式文字樣式 */
+    /* 2. 文青漸入式文字樣式（改為置中直列呈現） */
     .fade-text-container {
-      flex: 0.8;
-      text-align: left;
+      width: 100%;
+      text-align: center;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -239,15 +239,15 @@
 
     .fade-text-container h2 {
       font-family: 'Ma Shan Zheng', cursive, sans-serif;
-      font-size: 38px;
+      font-size: 36px;
       color: #5c4d42;
-      margin: 0 0 12px 0;
-      letter-spacing: 4px;
+      margin: 0 0 10px 0;
+      letter-spacing: 3px;
       font-weight: normal;
     }
 
     .fade-text-container p {
-      font-size: 14px;
+      font-size: 15px;
       color: #8c7361;
       margin: 0;
       letter-spacing: 1.5px;
@@ -263,20 +263,6 @@
       100% {
         opacity: 1;
         transform: translateY(0);
-      }
-    }
-
-    /* 響應式調整：手機版改為上下堆疊 */
-    @media (max-width: 768px) {
-      .hero-section {
-        flex-direction: column;
-      }
-      .fade-text-container {
-        text-align: center;
-        width: 100%;
-      }
-      .photo-card {
-        height: 220px;
       }
     }
   </style>
@@ -303,9 +289,9 @@
     </div>
   </header>
 
-  <!-- 相片滑動區與右側文青漸入文字區塊 -->
+  <!-- 相片滑動區與下方文青漸入文字區塊（直列排版） -->
   <section class="hero-section">
-    <!-- 左側：可手動滑動、自動輪播的相片區 -->
+    <!-- 上方：可手動滑動、自動輪播的相片區 -->
     <div class="photo-slider-container" id="sliderContainer">
       <div class="photo-track" id="photoTrack">
         <div class="photo-card">相片展示區 01<br><span style="font-size:12px; margin-top:5px;">(支援手動左右滑動)</span></div>
@@ -314,10 +300,10 @@
       </div>
     </div>
 
-    <!-- 右側：文青字體吸眼球漸入式文案 -->
+    <!-- 下方：文青字體 Slogan 區塊 -->
     <div class="fade-text-container">
-      <h2>光影交織</h2>
-      <p>點亮每個浪漫瞬間。<br>以光影與氣球，訂製妳的專屬美學。</p>
+      <h2>輕盈如夢聚光成嶼</h2>
+      <p>將歡聚化為永恆，點亮每個浪漫瞬間。<br>嶼光—為每個平凡日子點亮不凡。</p>
     </div>
   </section>
 
