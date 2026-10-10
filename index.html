@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LumaireBalloon 嶼光製氣</title>
   
+  <!-- 引入 Google Fonts 文青質感書法字體 (Ma Shan Zheng) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+
   <style>
     /* 頁面基礎設定 */
     body {
@@ -126,7 +131,7 @@
       letter-spacing: 2px;
     }
 
-    /* 搜尋列與按鈕樣式修正 */
+    /* 搜尋列與按鈕樣式 */
     .search-box {
       display: flex;
       justify-content: center;
@@ -166,7 +171,7 @@
     }
 
     /* ==========================================
-       新增：相片區與漸入式文字區塊版面 (Banner Section)
+       相片區與文青 Slogan 區塊版面 (Hero Section)
        ========================================== */
     .hero-section {
       display: flex;
@@ -179,7 +184,7 @@
       box-sizing: border-box;
     }
 
-    /* 1. 相片滑動區（支援手動觸控/滑鼠拖曳、未來可自動輪播） */
+    /* 1. 相片滑動區 */
     .photo-slider-container {
       flex: 1.2;
       position: relative;
@@ -199,7 +204,6 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    /* 隱藏捲軸但保留滑動功能 */
     .photo-track::-webkit-scrollbar {
       display: none;
     }
@@ -208,7 +212,6 @@
       scrollbar-width: none;
     }
 
-    /* 相片卡片預留樣式（未來換成真實 <img> 即可） */
     .photo-card {
       flex: 0 0 100%;
       height: 280px;
@@ -224,141 +227,17 @@
       border: 2px dashed #b5a493;
     }
 
-    /* 2. 右側漸入式文字樣式 */
+    /* 2. 右側文青漸入式文字樣式 */
     .fade-text-container {
       flex: 0.8;
       text-align: left;
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 0.3s; /* 頁面載入後延遲淡入 */
+      animation-delay: 0.3s;
     }
 
     .fade-text-container h2 {
-      font-size: 28px;
-      color: #5c4d42;
-      margin: 0 0 10px 0;
-      letter-spacing: 3px;
-      font-weight: normal;
-    }
-
-    .fade-text-container p {
-      font-size: 14px;
-      color: #8c7361;
-      margin: 0;
-      letter-spacing: 1px;
-      line-height: 1.6;
-    }
-
-    /* 漸入動畫 Keyframes */
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* 響應式調整：手機版改為上下堆疊 */
-    @media (max-width: 768px) {
-      .hero-section {
-        flex-direction: column;
-      }
-      .fade-text-container {
-        text-align: center;
-        width: 100%;
-      }
-      .photo-card {
-        height: 220px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- 頂部區塊 -->
-  <header class="header-container">
-    <!-- 左上角漢堡按鈕 -->
-    <div class="hamburger-menu" onclick="toggleMenu()">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-
-    <!-- 標題與搜尋列 -->
-    <div class="title-area">
-      <h1>LumaireBalloon</h1>
-      <p>嶼光製氣</p>
-    </div>
-    <div class="search-box">
-      <input type="text" placeholder="🔍 產品名稱">
-      <button>搜尋</button>
-    </div>
-  </header>
-
-  <!-- 新增：相片滑動區與右側漸入文字區塊 -->
-  <section class="hero-section">
-    <!-- 左側：可手動滑動、未來可自動輪播的相片區 -->
-    <div class="photo-slider-container" id="sliderContainer">
-      <div class="photo-track" id="photoTrack">
-        <!-- 未來放入真實圖片時，將 div 改為 <img src="..." alt="..."> 即可 -->
-        <div class="photo-card">相片展示區 01<br><span style="font-size:12px; margin-top:5px;">(支援手動左右滑動)</span></div>
-        <div class="photo-card">相片展示區 02</div>
-        <div class="photo-card">相片展示區 03</div>
-      </div>
-    </div>
-
-    <!-- 右側：吸眼球漸入式文案 -->
-    <div class="fade-text-container">
-      <h2>光影交織</h2>
-      <p>點亮每個浪漫瞬間。<br>以光影與氣球，訂製妳的專屬美學。</p>
-    </div>
-  </section>
-
-  <!-- 側邊選單 -->
-  <nav class="sidebar" id="sidebar">
-    <div class="close-btn" onclick="toggleMenu()">&times;</div>
-    <ul>
-      <li><a href="#">首頁</a></li>
-      <li><a href="#">關於我們</a></li>
-      <li><a href="#">商品列表</a></li>
-      <li><a href="#">最新消息</a></li>
-      <li><a href="#">聯絡我們</a></li>
-    </ul>
-  </nav>
-
-  <!-- 背景遮罩 -->
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-  <!-- JavaScript 控制邏輯 -->
-  <script>
-    // 側邊選單開關
-    function toggleMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-      
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-    }
-
-    // 相片區自動滑動邏輯 (每 3 秒自動切換下一張，滑動到底自動循環回第一張)
-    const track = document.getElementById('photoTrack');
-    let autoSlideInterval = setInterval(() => {
-      const cardWidth = track.querySelector('.photo-card').offsetWidth + 15; // 寬度加上 gap
-      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-        track.scrollTo({ left: 0, behavior: 'smooth' }); // 結尾回到開頭
-      } else {
-        track.scrollBy({ left: cardWidth, behavior: 'smooth' }); // 往右滑動一張
-      }
-    }, 3000);
-
-    // 當使用者手動觸控或滑動時，暫停自動輪播，提升使用者體驗
-    track.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
-    track.addEventListener('mousedown', () => clearInterval(autoSlideInterval));
-  </script>
-
-</body>
-</html>
+      /* 套用文青書法字體，並加大字級與字距 */
+      font-family: 'Ma Shan Zheng', cursive, sans-serif;
+      font-size: 38px;
