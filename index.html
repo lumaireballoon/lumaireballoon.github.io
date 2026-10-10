@@ -4,14 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LumaireBalloon 嶼光製氣</title>
-  
-  <!-- 引入 Google Fonts 文青質感書法字體 (Ma Shan Zheng) 與備用安全字體 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 
   <style>
-    /* 頁面基礎設定與全平台相容字型 */
+    /* 頁面基礎設定：使用全裝置最相容的標準字體，絕不亂碼 */
     body {
       margin: 0;
       padding: 0;
@@ -171,7 +166,7 @@
     }
 
     /* ==========================================
-       相片區與文青 Slogan 區塊版面（上下直列）
+       相片區與 Slogan 區塊版面（上下直列排版）
        ========================================== */
     .hero-section {
       display: flex;
@@ -227,7 +222,7 @@
       border: 2px dashed #b5a493;
     }
 
-    /* 2. 文青漸入式文字樣式（相容各裝置的書法與中文字型疊代） */
+    /* 2. Slogan 文字樣式（使用絕對相容的標準字體） */
     .fade-text-container {
       width: 100%;
       text-align: center;
@@ -238,17 +233,14 @@
     }
 
     .fade-text-container h2 {
-      /* 設定 Google Fonts 優先，若不支援則自動尋找系統最美的傳統書法或標楷體 */
-      font-family: 'Ma Shan Zheng', "STKaiti", "KaiTi", "BiauKai", "Microsoft JhengHei", serif;
-      font-size: 36px;
+      font-size: 28px;
       color: #5c4d42;
       margin: 0 0 10px 0;
       letter-spacing: 3px;
-      font-weight: normal;
+      font-weight: bold;
     }
 
     .fade-text-container p {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
       font-size: 15px;
       color: #8c7361;
       margin: 0;
@@ -291,7 +283,7 @@
     </div>
   </header>
 
-  <!-- 相片滑動區與下方文青漸入文字區塊（直列排版） -->
+  <!-- 相片滑動區與下方 Slogan 區塊（直列排版） -->
   <section class="hero-section">
     <!-- 上方：可手動滑動、自動輪播的相片區 -->
     <div class="photo-slider-container" id="sliderContainer">
@@ -302,7 +294,7 @@
       </div>
     </div>
 
-    <!-- 下方：文青字體 Slogan 區塊 -->
+    <!-- 下方：Slogan 標語區塊 -->
     <div class="fade-text-container">
       <h2>輕盈如夢聚光成嶼</h2>
       <p>將歡聚化為永恆，點亮每個浪漫瞬間。<br>嶼光—為每個平凡日子點亮不凡。</p>
