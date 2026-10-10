@@ -222,7 +222,7 @@
       border: 2px dashed #b5a493;
     }
 
-    /* 2. Slogan 文字樣式（使用絕對相容的標準字體） */
+    /* 2. Slogan 文字與按鈕包裝區塊 */
     .fade-text-container {
       width: 100%;
       text-align: center;
@@ -233,7 +233,7 @@
     }
 
     .fade-text-container h2 {
-      font-size: 28px;
+      font-size: 26px;
       color: #5c4d42;
       margin: 0 0 10px 0;
       letter-spacing: 3px;
@@ -241,11 +241,35 @@
     }
 
     .fade-text-container p {
-      font-size: 15px;
+      font-size: 14px;
       color: #8c7361;
-      margin: 0;
+      margin: 0 0 20px 0;
       letter-spacing: 1.5px;
       line-height: 1.8;
+    }
+
+    /* 3. Line 快速諮詢按鈕樣式 */
+    .line-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: #06C755;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 10px 24px;
+      border-radius: 24px;
+      box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3);
+      transition: all 0.2s ease;
+      letter-spacing: 1px;
+    }
+
+    .line-btn:hover {
+      background-color: #05b34c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(6, 199, 85, 0.4);
     }
 
     /* 漸入動畫 Keyframes */
@@ -294,10 +318,15 @@
       </div>
     </div>
 
-    <!-- 下方：Slogan 標語區塊 -->
+    <!-- 下方：Slogan 標語與 Line 按鈕區塊 -->
     <div class="fade-text-container">
       <h2>輕盈如夢聚光成嶼</h2>
       <p>將歡聚化為永恆，點亮每個浪漫瞬間。<br>嶼光—為每個平凡日子點亮不凡。</p>
+      
+      <!-- Line 快速諮詢按鈕 -->
+      <a href="https://lin.ee/709rU13" class="line-btn" target="_blank">
+        💬 Line 快速諮詢
+      </a>
     </div>
   </section>
 
