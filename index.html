@@ -11,28 +11,38 @@
            1. 頂部大背景區塊 (Hero Header)
            ========================================= */
         .hero-header {
-            position: relative; /* 確保內部的導覽列只會在這區塊內對齊 */
+            position: relative; 
             width: 100%;
-            height: 50vh; /* 佔據畫面一半高度 */
-            min-height: 350px; /* 最小高度，避免在手機上太扁 */
-            background-color: #2b2b2b; /* 圖片若沒載入時的底色 */
-            
-            /* 👇 請將引號內換成你的大背景圖片網址 👇 */
-           /* 把原本單純的 url(...) 替換成下面這行，加上 linear-gradient 遮罩 */
-        background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url(公司背景Logo.jpg);
-            
-            background-size: cover; /* 讓圖片保持比例填滿，絕對不變形 */
-            background-position: center; 
-            background-repeat: no-repeat;
+            height: 50vh; 
+            min-height: 350px; 
+            background-color: #faf7f2; /* 圖片若沒載入時的底色 */
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden; /* 確保背景超出部分被切掉 */
+        }
+
+        /* 透過偽元素放置背景圖，單獨控制透明度 */
+        .hero-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('公司背景Logo.jpg'); 
+            background-size: cover; 
+            background-position: center center; /* 平板/預設：鎖定正中央 */
+            background-repeat: no-repeat;
+            
+            opacity: 0.5; /* 👇 大背景透明度在這裡調整 (0到1之間，越小越淡) */
+            z-index: 1; 
         }
 
         /* 導覽列 (浮在 hero-header 最上方邊緣) */
         .top-nav {
-            position: fixed;
+            position: fixed; /* 讓導覽列固定在畫面上方 */
             top: 0;
             left: 0;
             width: 100%;
@@ -41,7 +51,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            z-index: 9999;
+            z-index: 9999; /* 提高層級，確保往下滑動時不被蓋住 */
         }
 
         /* 漢堡選單 */
@@ -53,13 +63,12 @@
             height: 18px;
             cursor: pointer;
         }
-       .hamburger-menu .bar {
+        .hamburger-menu .bar {
             height: 2px;
             width: 100%;
             background-color: #fff; /* 保持白色 */
             border-radius: 2px;
-            /* 👇 把原本的 box-shadow 替換或改成這行更有立體感、會發光的陰影 👇 */
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.5); 
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.5); /* 雙層立體光暈陰影 */
             transition: all 0.3s ease;
         }
 
@@ -76,7 +85,7 @@
             border-radius: 18px 0 0 18px;
             outline: none;
             font-size: 14px;
-            background: rgba(255, 255, 255, 0.85); /* 半透明白色 */
+            background: rgba(255, 255, 255, 0.85);
         }
         .search-box button {
             height: 36px;
@@ -91,17 +100,16 @@
 
         /* 置中疊加的小 LOGO */
         .brand-logo {
-            width: 220px; /* 小LOGO的大小 */
+            position: relative;
+            width: 220px; /* 平板/預設 小LOGO大小 */
             height: auto;
             z-index: 10;
-            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3)); /* 微微的立體陰影 */
-            
-            /* 👇 加上這行，讓 LOGO 往下推 👇 */
+            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3)); 
             margin-top: 40px; 
         }
 
         /* =========================================
-           2. 側邊欄與其他共用樣式 (保留不變)
+           2. 側邊欄與其他共用樣式
            ========================================= */
         .sidebar {position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #faf7f2; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); transition: left 0.3s ease; z-index: 1001; padding-top: 60px; overflow-y: auto; }
         .sidebar.active {left: 0; }
@@ -160,26 +168,21 @@
            手機版專屬優化 (螢幕寬度 768px 以下觸發) 
            ========================================= */
         @media (max-width: 768px) {
-            
-            /* 1. 調整大背景區塊的高度，避免背景圖被切掉太多 */
             .hero-header {
-                height: 40vh;         /* 稍微縮小手機版的高度 */
-                min-height: 250px;    /* 降低最小高度限制 */
+                height: 40vh;         
+                min-height: 250px;    
             }
 
-            /* 讓背景圖在手機上盡量完整顯示 */
             .hero-header::before {
-                background-size: contain; /* 讓圖片完整縮放進去，不裁切兩側 */
-                background-position: center 20%; /* 稍微把背景圖往上挪一點 */
+                background-size: cover; 
+                background-position: center 30%; /* 手機版：稍微偏上鎖定核心 */
             }
 
-            /* 2. 縮小置中小 LOGO，並調回原本的高度 */
             .brand-logo {
-                width: 160px;       /* 手機版把 LOGO 縮小 */
-                margin-top: 50px;   /* 減少往下推的距離，避免畫面太擠 */
+                width: 160px;       
+                margin-top: 50px;   
             }
             
-            /* 3. 微調頂部導覽列，讓選單跟搜尋框不要貼得太緊 */
             .top-nav {
                 padding: 10px 15px; 
             }
@@ -190,27 +193,17 @@
            ========================================= */
         @media (min-width: 1024px) {
             .hero-header {
-                /* 稍微增加一點高度，讓畫面更大氣 */
                 height: 65vh; 
-                
-                /* 👇 關鍵1：將底色設定為你圖片的灰藍色 (我抓了大概的色碼，你可以微調) 👇 */
-                background-color: #697184; 
+                background-color: #697184; /* 背景色填滿兩側空白 */
             }
             
             .hero-header::before {
-                /* 👇 關鍵2：讓圖片完整顯示，絕對不裁切 👇 */
-                background-size: contain; 
-                
-                /* 讓圖片置中，如果有需要可以微調 (例如 center 10% 讓它稍微偏上) */
-                background-position: center; 
+                background-size: cover; /* 大螢幕全面填滿 */
+                background-position: center center; /* 大螢幕鎖定正中央 */
             }
             
-            /* 電腦版可以把小 LOGO 稍微往下推一點，避開導覽列與背景的文字 */
             .brand-logo {
-                
-                /* 👇 這裡就是單獨控制電腦版 Logo 大小的地方！原本預設是 220px 👇 */
-                width: 320px; /* 這裡加大到 320px，在寬螢幕下更醒目 */
-                
+                width: 320px; /* 大螢幕放大 LOGO */
                 margin-top: 60px;
             }
         }
@@ -236,7 +229,6 @@
             </div>
         </div>
 
-        <!-- 👇 把這行的 src="" 裡面的文字換成你的「小 LOGO」圖片網址 👇 -->
         <img src="公司純金標Logo.png" alt="LumaireBalloon LOGO" class="brand-logo">
         
     </header>
