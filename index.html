@@ -1,444 +1,132 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LumaireBalloon 嶼光製氣</title>
-
-  <style>
-    /* 頁面基礎設定：使用全裝置最相容的標準字體，絕不亂碼 */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-      background-color: #faf7f2;
-    }
-
-    /* 頂部 Header 區域 */
-    .header-container {
-      position: relative;
-      background-color: #f2efe9;
-      padding: 20px;
-      text-align: center;
-    }
-
-    /* 漢堡按鈕圖示（固定在 Header 左上角） */
-    .hamburger-menu {
-      position: absolute;
-      top: 25px;
-      left: 25px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 26px;
-      height: 18px;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .hamburger-menu .bar {
-      height: 2px;
-      width: 100%;
-      background-color: #8c7361;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    /* 側邊抽屜選單 */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -260px;
-      width: 250px;
-      height: 100%;
-      background-color: #faf7f2;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-      transition: left 0.3s ease;
-      z-index: 1001;
-      padding-top: 60px;
-      overflow-y: auto;
-    }
-
-    .sidebar.active {
-      left: 0;
-    }
-
-    /* 關閉按鈕 (X) */
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 28px;
-      color: #8c7361;
-      cursor: pointer;
-    }
-
-    /* 選單清單樣式 */
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .sidebar ul li {
-      border-bottom: 1px solid rgba(140, 115, 97, 0.1);
-    }
-
-    .sidebar ul li a, 
-    .sidebar .dropdown-btn {
-      text-decoration: none;
-      color: #5c4d42;
-      font-size: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      width: 100%;
-      box-sizing: border-box;
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      font-family: inherit;
-      transition: color 0.2s, background-color 0.2s;
-    }
-
-    .sidebar ul li a:hover,
-    .sidebar .dropdown-btn:hover {
-      color: #a88b74;
-      background-color: rgba(140, 115, 97, 0.05);
-    }
-
-    /* 商品列表展開的子選單樣式 */
-    .dropdown-container {
-      display: none;
-      background-color: rgba(140, 115, 97, 0.04);
-      padding-left: 15px;
-    }
-
-    .dropdown-container.active {
-      display: block;
-    }
-
-    .dropdown-container li {
-      border-bottom: none;
-    }
-
-    .dropdown-container a {
-      font-size: 14px;
-      padding: 12px 25px;
-      color: #735d4d;
-    }
-
-    /* 下拉箭頭圖示旋轉效果 */
-    .arrow {
-      transition: transform 0.3s ease;
-      font-size: 12px;
-    }
-    .dropdown-btn.active .arrow {
-      transform: rotate(180deg);
-    }
-
-    /* 背景半透明遮罩 */
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 999;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* 標題區域 */
-    .title-area h1 {
-      margin: 0;
-      font-size: 24px;
-      color: #8c7361;
-      font-weight: normal;
-    }
-
-    .title-area p {
-      margin: 5px 0 15px 0;
-      font-size: 12px;
-      color: #a88b74;
-      letter-spacing: 2px;
-    }
-
-    /* 搜尋列與按鈕樣式 */
-    .search-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .search-box input {
-      width: 100%;
-      height: 38px;
-      padding: 0 15px;
-      border: 1px solid #ddd;
-      border-radius: 20px 0 0 20px;
-      outline: none;
-      box-sizing: border-box;
-      font-size: 14px;
-    }
-
-    .search-box button {
-      height: 38px;
-      padding: 0 18px;
-      border: none;
-      background-color: #8c7361;
-      color: white;
-      border-radius: 0 19px 19px 0;
-      cursor: pointer;
-      white-space: nowrap;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .search-box button:hover {
-      background-color: #735d4d;
-    }
-
-    /* ==========================================
-       相片區與 Slogan 區塊版面（上下直列排版）
-       ========================================== */
-    .hero-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 0 20px;
-      gap: 25px;
-      box-sizing: border-box;
-    }
-
-    /* 1. 相片滑動區 */
-    .photo-slider-container {
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(140, 115, 97, 0.15);
-      background-color: #f2efe9;
-    }
-
-    .photo-track {
-      display: flex;
-      gap: 15px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      padding: 15px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .photo-track::-webkit-scrollbar {
-      display: none;
-    }
-    .photo-track {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    .photo-card {
-      flex: 0 0 100%;
-      height: 320px;
-      scroll-snap-align: center;
-      background-color: #e6dfd5;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #8c7361;
-      font-size: 15px;
-      border: 2px dashed #b5a493;
-    }
-
-    /* 2. Slogan 文字與按鈕包裝區塊 */
-    .fade-text-container {
-      width: 100%;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 0.3s;
-    }
-
-    .fade-text-container h2 {
-      font-size: 26px;
-      color: #5c4d42;
-      margin: 0 0 10px 0;
-      letter-spacing: 3px;
-      font-weight: bold;
-    }
-
-    .fade-text-container p {
-      font-size: 14px;
-      color: #8c7361;
-      margin: 0 0 20px 0;
-      letter-spacing: 1.5px;
-      line-height: 1.8;
-    }
-
-    /* 3. Line 快速諮詢按鈕樣式 */
-    .line-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background-color: #06C755;
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: bold;
-      padding: 10px 24px;
-      border-radius: 24px;
-      box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3);
-      transition: all 0.2s ease;
-      letter-spacing: 1px;
-    }
-
-    .line-btn:hover {
-      background-color: #05b34c;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(6, 199, 85, 0.4);
-    }
-
-    /* 漸入動畫 Keyframes */
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumaireBalloon 嶼光製氣 | 首頁</title>
+    <style>
+        body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
+        .header-container {position: relative; background-color: #f2efe9; padding: 20px; text-align: center; }
+        .hamburger-menu {position: absolute; top: 25px; left: 25px; display: flex; flex-direction: column; justify-content: space-between; width: 26px; height: 18px; cursor: pointer; z-index: 1000; }
+        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; transition: all 0.3s ease; }
+        .sidebar {position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #faf7f2; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); transition: left 0.3s ease; z-index: 1001; padding-top: 60px; overflow-y: auto; }
+        .sidebar.active {left: 0; }
+        .close-btn {position: absolute; top: 15px; right: 20px; font-size: 28px; color: #8c7361; cursor: pointer; }
+        .sidebar ul {list-style: none; padding: 0; margin: 0; }
+        .sidebar ul li {border-bottom: 1px solid rgba(140, 115, 97, 0.1); }
+        .sidebar ul li a, .sidebar .dropdown-btn {text-decoration: none; color: #5c4d42; font-size: 16px; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; width: 100%; box-sizing: border-box; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; transition: color 0.2s, background-color 0.2s; }
+        .sidebar ul li a:hover, .sidebar .dropdown-btn:hover {color: #a88b74; background-color: rgba(140, 115, 97, 0.05); }
+        .dropdown-container {display: none; background-color: rgba(140, 115, 97, 0.04); padding-left: 15px; }
+        .dropdown-container.active {display: block; }
+        .dropdown-container li {border-bottom: none; }
+        .dropdown-container a {font-size: 14px; padding: 12px 25px; color: #735d4d; }
+        .arrow {transition: transform 0.3s ease; font-size: 12px; }
+        .dropdown-btn.active .arrow {transform: rotate(180deg); }
+        .overlay {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 999; }
+        .overlay.active {display: block; }
+        .title-area h1 {margin: 0; font-size: 24px; color: #8c7361; font-weight: normal; }
+        .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
+        .search-box {display: flex; justify-content: center; align-items: center; max-width: 400px; margin: 0 auto; }
+        .search-box input {width: 100%; height: 38px; padding: 0 15px; border: 1px solid #ddd; border-radius: 20px 0 0 20px; outline: none; box-sizing: border-box; font-size: 14px; }
+        .search-box button {height: 38px; padding: 0 18px; border: none; background-color: #8c7361; color: white; border-radius: 0 19px 19px 0; cursor: pointer; white-space: nowrap; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+        .search-box button:hover {background-color: #735d4d; }
+        .hero-section {display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 30px auto; padding: 0 20px; gap: 25px; box-sizing: border-box; }
+        .photo-slider-container {width: 100%; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(140, 115, 97, 0.15); background-color: #f2efe9; }
+        .photo-track {display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 15px; -webkit-overflow-scrolling: touch; }
+        .photo-track::-webkit-scrollbar {display: none; }
+        .photo-card {flex: 0 0 100%; height: 320px; scroll-snap-align: center; background-color: #e6dfd5; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8c7361; font-size: 15px; border: 2px dashed #b5a493; }
+        .fade-text-container {width: 100%; text-align: center; opacity: 0; transform: translateY(20px); animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.3s; }
+        .fade-text-container h2 {font-size: 26px; color: #5c4d42; margin: 0 0 10px 0; letter-spacing: 3px; font-weight: bold; }
+        .fade-text-container p {font-size: 14px; color: #8c7361; margin: 0 0 20px 0; letter-spacing: 1.5px; line-height: 1.8; }
+        .line-btn {display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #06C755; color: white; text-decoration: none; font-size: 15px; font-weight: bold; padding: 10px 24px; border-radius: 24px; box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3); transition: all 0.2s ease; letter-spacing: 1px; }
+        .line-btn:hover {background-color: #05b34c; transform: translateY(-2px); box-shadow: 0 6px 14px rgba(6, 199, 85, 0.4); }
+        @keyframes fadeInUp {0% {opacity: 0; transform: translateY(20px); } 100% {opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
+    <header class="header-container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="title-area">
+            <h1>LumaireBalloon</h1>
+            <p>嶼光製氣</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="🔍 產品名稱">
+            <button>搜尋</button>
+        </div>
+    </header>
 
-  <!-- 頂部區塊 -->
-  <header class="header-container">
-    <!-- 左上角漢堡按鈕 -->
-    <div class="hamburger-menu" onclick="toggleMenu()">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
+    <section class="hero-section">
+        <div class="photo-slider-container" id="sliderContainer">
+            <div class="photo-track" id="photoTrack">
+                <div class="photo-card">相片展示區 01<br><span style="font-size:12px; margin-top:5px;">(支援手動左右滑動)</span></div>
+                <div class="photo-card">相片展示區 02</div>
+                <div class="photo-card">相片展示區 03</div>
+            </div>
+        </div>
+        <div class="fade-text-container">
+            <h2>輕盈如夢聚光成嶼</h2>
+            <p>將歡聚化為永恆，點亮每個浪漫瞬間。<br>嶼光—為每個平凡日子點亮不凡。</p>
+            <a href="https://lin.ee/709rU13" class="line-btn" target="_blank"> 💬 Line 快速諮詢 </a>
+        </div>
+    </section>
 
-    <!-- 標題與搜尋列 -->
-    <div class="title-area">
-      <h1>LumaireBalloon</h1>
-      <p>嶼光製氣</p>
-    </div>
-    <div class="search-box">
-      <input type="text" placeholder="🔍 產品名稱">
-      <button>搜尋</button>
-    </div>
-  </header>
-
-  <!-- 相片滑動區與下方 Slogan 區塊（直列排版） -->
-  <section class="hero-section">
-    <!-- 上方：可手動滑動、自動輪播的相片區 -->
-    <div class="photo-slider-container" id="sliderContainer">
-      <div class="photo-track" id="photoTrack">
-        <div class="photo-card">相片展示區 01<br><span style="font-size:12px; margin-top:5px;">(支援手動左右滑動)</span></div>
-        <div class="photo-card">相片展示區 02</div>
-        <div class="photo-card">相片展示區 03</div>
-      </div>
-    </div>
-
-    <!-- 下方：Slogan 標語與 Line 按鈕區塊 -->
-    <div class="fade-text-container">
-      <h2>輕盈如夢聚光成嶼</h2>
-      <p>將歡聚化為永恆，點亮每個浪漫瞬間。<br>嶼光—為每個平凡日子點亮不凡。</p>
-      
-      <!-- Line 快速諮詢按鈕 -->
-      <a href="https://lin.ee/709rU13" class="line-btn" target="_blank">
-        💬 Line 快速諮詢
-      </a>
-    </div>
-  </section>
-
-  <!-- 側邊選單 -->
-  <nav class="sidebar" id="sidebar">
-    <div class="close-btn" onclick="toggleMenu()">&times;</div>
-    <ul>
-      <li><a href="#">首頁</a></li>
-      <li><a href="#">最新消息</a></li>
-      
-      <!-- 可展開的商品列表 -->
-      <li>
-        <button class="dropdown-btn" onclick="toggleDropdown()">
-          <span>商品列表</span>
-          <span class="arrow">▼</span>
-        </button>
-        <ul class="dropdown-container" id="productDropdown">
-          <li><a href="#">氣球柱、拱門、球牆</a></li>
-          <li><a href="#">氣球花束</a></li>
-          <li><a href="#">泡泡球</a></li>
-          <li><a href="#">乳膠氣球</a></li>
-          <li><a href="#">客製化佈置</a></li>
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="#">最新消息</a></li>
+            <li>
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <span>商品列表</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <ul class="dropdown-container" id="productDropdown">
+                    <li><a href="arch.html">氣球柱、拱門、球牆</a></li>
+                    <li><a href="#">氣球花束</a></li>
+                    <li><a href="#">泡泡球</a></li>
+                    <li><a href="#">乳膠氣球</a></li>
+                    <li><a href="#">客製化佈置</a></li>
+                </ul>
+            </li>
+            <li><a href="#">關於我們</a></li>
+            <li><a href="#">FAQ</a></li>
         </ul>
-      </li>
+    </nav>
 
-      <li><a href="#">關於我們</a></li>
-      <li><a href="#">FAQ</a></li>
-    </ul>
-  </nav>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- 背景遮罩 -->
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
 
-  <!-- JavaScript 控制邏輯 -->
-  <script>
-    // 側邊選單開關
-    function toggleMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-      
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-    }
+        function toggleDropdown() {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContainer = document.getElementById('productDropdown');
+            dropdownBtn.classList.toggle('active');
+            dropdownContainer.classList.toggle('active');
+        }
 
-    // 商品列表子選單展開/收合開關
-    function toggleDropdown() {
-      const dropdownBtn = document.querySelector('.dropdown-btn');
-      const dropdownContainer = document.getElementById('productDropdown');
-      
-      dropdownBtn.classList.toggle('active');
-      dropdownContainer.classList.toggle('active');
-    }
+        const track = document.getElementById('photoTrack');
+        let autoSlideInterval = setInterval(() => {
+            const cardWidth = track.querySelector('.photo-card').offsetWidth + 15;
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+                track.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            }
+        }, 3000);
 
-    // 相片區自動滑動邏輯
-    const track = document.getElementById('photoTrack');
-    let autoSlideInterval = setInterval(() => {
-      const cardWidth = track.querySelector('.photo-card').offsetWidth + 15;
-      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-        track.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        track.scrollBy({ left: cardWidth, behavior: 'smooth' });
-      }
-    }, 3000);
-
-    // 手動觸控或滑動時暫停自動輪播
-    track.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
-    track.addEventListener('mousedown', () => clearInterval(autoSlideInterval));
-  </script>
-
+        track.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
+        track.addEventListener('mousedown', () => clearInterval(autoSlideInterval));
+    </script>
 </body>
 </html>
