@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我們 | LumaireBalloon 嶼光製氣</title>
+    <style>
+        body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
+        .header-container {position: relative; background-color: #f2efe9; padding: 20px; text-align: center; }
+        .hamburger-menu {position: absolute; top: 25px; left: 25px; display: flex; flex-direction: column; justify-content: space-between; width: 26px; height: 18px; cursor: pointer; z-index: 1000; }
+        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; transition: all 0.3s ease; }
+        .sidebar {position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #faf7f2; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); transition: left 0.3s ease; z-index: 1001; padding-top: 60px; overflow-y: auto; }
+        .sidebar.active {left: 0; }
+        .close-btn {position: absolute; top: 15px; right: 20px; font-size: 28px; color: #8c7361; cursor: pointer; }
+        .sidebar ul {list-style: none; padding: 0; margin: 0; }
+        .sidebar ul li {border-bottom: 1px solid rgba(140, 115, 97, 0.1); }
+        .sidebar ul li a, .sidebar .dropdown-btn {text-decoration: none; color: #5c4d42; font-size: 16px; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; width: 100%; box-sizing: border-box; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; transition: color 0.2s, background-color 0.2s; }
+        .sidebar ul li a:hover, .sidebar .dropdown-btn:hover {color: #a88b74; background-color: rgba(140, 115, 97, 0.05); }
+        .dropdown-container {display: none; background-color: rgba(140, 115, 97, 0.04); padding-left: 15px; }
+        .dropdown-container.active {display: block; }
+        .dropdown-container li {border-bottom: none; }
+        .dropdown-container a {font-size: 14px; padding: 12px 25px; color: #735d4d; }
+        .arrow {transition: transform 0.3s ease; font-size: 12px; }
+        .dropdown-btn.active .arrow {transform: rotate(180deg); }
+        .overlay {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 999; }
+        .overlay.active {display: block; }
+        .title-area h1 {margin: 0; font-size: 24px; color: #8c7361; font-weight: normal; }
+        .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
+        
+        /* 關於我們專屬樣式 */
+        .about-section {
+            max-width: 800px; 
+            margin: 40px auto 80px auto; 
+            padding: 40px 30px; 
+            position: relative; 
+            background-color: #fff; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(140, 115, 97, 0.08); 
+            overflow: hidden;
+            box-sizing: border-box;
+        }
 
+        /* 這裡設定 LOGO 作為半透明背景 (浮水印效果) */
+        .about-section::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%; /* 背景圖的寬度比例 */
+            height: 80%;
+            /* ⚠️請把下方 URL 括號內的文字，換成你的 LOGO 圖片網址⚠️ */
+            background-image: url('你的LOGO圖片網址.png'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.05; /* 透明度 0.05，才不會干擾文字閱讀 */
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1; /* 確保文字在 LOGO 上方 */
+            color: #5c4d42;
+            line-height: 2;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        
+        .about-content h2 {
+            text-align: center;
+            color: #8c7361;
+            letter-spacing: 3px;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .highlight-text {
+            color: #8c7361;
+            font-weight: bold;
+        }
+
+        /* 右下角懸浮 LINE 按鈕 */
+        .floating-line-btn {position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
+        .floating-line-btn:hover {transform: scale(1.1); }
+        
+        @media (max-width: 768px) {
+            .about-section { margin: 20px; padding: 30px 20px; }
+            .about-content { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="title-area">
+            <h1>LumaireBalloon</h1>
+            <p>嶼光製氣</p>
+        </div>
+    </header>
+
+    <!-- 關於我們內容區塊 -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>從恐懼到熱愛，點亮每個不凡瞬間</h2>
+            <p>歡迎來到 <span class="highlight-text">LumaireBalloon 嶼光製氣</span>！</p>
+            
+            <p>雖然這是一個剛誕生的全新品牌，但我們在氣球藝術領域，已經深耕了整整 10 年的時間。這 10 年來，我們累積了豐富的實戰經驗，從開班授課的氣球教學，到大型展覽的佈置策劃，每一次的挑戰都讓我們不斷蛻變與成長。</p>
+            
+            <p>回想最初接觸氣球時，其實我們也和許多人一樣，對氣球隨時可能發出的爆破聲感到恐懼。但隨著一次次地觸碰、塑形與嘗試，這份害怕漸漸轉化為深深的熱愛。我們發現，氣球不再只是單純的裝飾品，而是我們表達創意、傳遞幸福的魔法。</p>
+
+            <p>從最初單打獨鬥的個人，到如今正式成立公司，這一路走來，支撐我們不斷前進的最大動力，就是每當作品完成時，看見你們眼中閃爍的光芒，以及那發自內心的驚呼與讚嘆。那瞬間的感動，是我們無可取代的成就感。</p>
+
+            <p style="text-align: center; margin-top: 35px; font-weight: bold; color: #8c7361;">
+                「將歡聚化為永恆，點亮每個浪漫瞬間。」<br><br>
+                嶼光製氣，期待能用我們 10 年的專業與熱情，為您的每個平凡日子，點亮不凡的驚喜！
+            </p>
+        </div>
+    </section>
+
+    <!-- 側邊導覽列 (已設定連結) -->
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="#">最新消息</a></li>
+            <li>
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <span>商品列表</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <ul class="dropdown-container" id="productDropdown">
+                    <li><a href="arch.html">氣球柱、拱門、球牆</a></li>
+                    <li><a href="#">氣球花束</a></li>
+                    <li><a href="#">泡泡球</a></li>
+                    <li><a href="#">乳膠氣球</a></li>
+                    <li><a href="#">客製化佈置</a></li>
+                </ul>
+            </li>
+            <li><a href="about.html">關於我們</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- 右下角懸浮 LINE 按鈕 -->
+    <a href="https://lin.ee/709rU13" class="floating-line-btn" target="_blank" title="LINE 快速諮詢">
+        <svg viewBox="0 0 24 24" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff" d="M12 2C6.477 2 2 5.923 2 10.75c0 2.766 1.503 5.23 3.844 6.836-.14.523-.526 1.956-.604 2.257-.107.412.15.807.545.719.345-.077 2.146-.484 3.142-.716C10.22 20.15 11.085 20.25 12 20.25c5.523 0 10-3.923 10-8.75S17.523 2 12 2z"/>
+            <path fill="#06C755" d="M 5.5 9.2 v 4.2 h 2.6 v -0.9 h -1.7 v -3.3 z M 9.0 9.2 v 4.2 h 1.1 v -4.2 z M 11.0 9.2 v 4.2 h 1.1 v -2.2 l 1.6 2.2 h 1.1 v -4.2 h -1.1 v 2.2 l -1.6 -2.2 z M 16.0 9.2 v 4.2 h 2.6 v -0.9 h -1.5 v -0.6 h 1.3 v -0.9 h -1.3 v -0.8 h 1.5 v -1 z"/>
+        </svg>
+    </a>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleDropdown() {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContainer = document.getElementById('productDropdown');
+            dropdownBtn.classList.toggle('active');
+            dropdownContainer.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
