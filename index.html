@@ -7,66 +7,97 @@
     <style>
         body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
         
- /* =========================================
-   1. 頂部導覽列 (透明浮動在最上層)
-   ========================================= */
-.header-container {
-    position: absolute; /* 讓導覽列脫離排版，浮在畫面上方 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: transparent; /* 拿掉原本的底色，改為透明 */
-    padding: 20px 20px 25px 20px;
-    z-index: 100; /* 確保選單與搜尋列不會被圖片蓋住 */
-    box-sizing: border-box; /* 確保 padding 不會撐破 100% 寬度 */
-    display: flex;
-    justify-content: space-between; /* 如果你有搜尋列，這能讓漢堡和搜尋分居左右 */
-    align-items: center;
-}
+        /* =========================================
+           1. 頂部大背景區塊 (Hero Header)
+           ========================================= */
+        .hero-header {
+            position: relative; /* 確保內部的導覽列只會在這區塊內對齊 */
+            width: 100%;
+            height: 50vh; /* 佔據畫面一半高度 */
+            min-height: 350px; /* 最小高度，避免在手機上太扁 */
+            background-color: #2b2b2b; /* 圖片若沒載入時的底色 */
+            
+            /* 👇 請將引號內換成你的大背景圖片網址 👇 */
+            background-image: url(公司背景.jpg); 
+            
+            background-size: cover; /* 讓圖片保持比例填滿，絕對不變形 */
+            background-position: center; 
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-/* 漢堡選單線條 (加上一點微陰影，避免在太亮或太暗的背景圖中糊掉) */
-.hamburger-menu {
-    position: relative; /* 取代原本的 absolute，配合 flex 排版 */
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    z-index: 101;
-}
+        /* 導覽列 (浮在 hero-header 最上方邊緣) */
+        .top-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 25px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 100;
+        }
 
-.hamburger-menu .bar {
-    height: 2px;
-    width: 25px; /* 給定明確寬度 */
-    background-color: #8c7361; /* 原本的咖啡色 */
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.7); /* 白色光暈增加對比 */
-}
-
-/* =========================================
-   2. 主視覺大背景圖 (Hero Banner)
-   ========================================= */
-.brand-banner {
-    width: 100%;
-    height: 70vh; /* 佔據螢幕 70% 高度，若要全滿可改為 100vh */
-    /* 這裡替換成你的氣球背景圖網址，並加上一層淡淡的黑色漸層讓上方選單更清楚 */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url(公司背景Logo.jpg); 
-    background-size: cover; /* 保持比例填滿 */
-    background-position: center; /* 視覺置中 */
-    background-repeat: no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+        /* 漢堡選單 */
+        .hamburger-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .hamburger-menu .bar {
+            height: 2px;
+            width: 100%;
+            background-color: #fff; /* 改成白色，在深色背景圖上比較清楚 */
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.6); /* 加陰影避免糊掉 */
+            transition: all 0.3s ease;
+        }
 
         /* 搜尋框 */
-        .search-box {display: flex; justify-content: center; align-items: center; max-width: 400px; margin: 0 auto; }
-        .search-box input {width: 100%; height: 38px; padding: 0 15px; border: 1px solid #ddd; border-radius: 20px 0 0 20px; outline: none; box-sizing: border-box; font-size: 14px; }
-        .search-box button {height: 38px; padding: 0 18px; border: none; background-color: #8c7361; color: white; border-radius: 0 19px 19px 0; cursor: pointer; white-space: nowrap; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-        .search-box button:hover {background-color: #735d4d; }
-        
-        /* 側邊欄 */
+        .search-box {
+            display: flex;
+            max-width: 250px;
+        }
+        .search-box input {
+            width: 100%;
+            height: 36px;
+            padding: 0 15px;
+            border: none;
+            border-radius: 18px 0 0 18px;
+            outline: none;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.85); /* 半透明白色 */
+        }
+        .search-box button {
+            height: 36px;
+            padding: 0 15px;
+            border: none;
+            background-color: #8c7361;
+            color: white;
+            border-radius: 0 18px 18px 0;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* 置中疊加的小 LOGO */
+        .brand-logo {
+            width: 150px; /* 小LOGO的大小 */
+            height: auto;
+            z-index: 10;
+            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3)); /* 微微的立體陰影 */
+        }
+
+        /* =========================================
+           2. 側邊欄與其他共用樣式 (保留不變)
+           ========================================= */
         .sidebar {position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #faf7f2; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); transition: left 0.3s ease; z-index: 1001; padding-top: 60px; overflow-y: auto; }
         .sidebar.active {left: 0; }
         .close-btn {position: absolute; top: 15px; right: 20px; font-size: 28px; color: #8c7361; cursor: pointer; }
@@ -83,7 +114,7 @@
         .overlay {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 999; }
         .overlay.active {display: block; }
         
-        /* 輪播區與英雄區塊 */
+        /* 輪播區與文字 */
         .hero-section {display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 30px auto; padding: 0 20px; gap: 25px; box-sizing: border-box; }
         .photo-slider-container {width: 100%; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(140, 115, 97, 0.15); background-color: #f2efe9; }
         .photo-track {display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 15px; -webkit-overflow-scrolling: touch; }
@@ -123,25 +154,30 @@
     </style>
 </head>
 <body>
-    <header class="header-container">
-        <div class="hamburger-menu" onclick="toggleMenu()">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
+    
+    <!-- 頂部大背景與導覽列 -->
+    <header class="hero-header">
         
-        <!-- 這裡就是替換後的：品牌大背景與小LOGO區塊 -->
-        <div class="brand-banner">
-            <!-- 👇 把這行 src="" 裡面的文字換成你的小 LOGO 圖片檔名 👇 -->
-            <img src="公司金標Logo.jpg" alt="LumaireBalloon LOGO" class="brand-logo">
+        <!-- 導覽列 (選單+搜尋框) -->
+        <div class="top-nav">
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" placeholder="🔍 產品名稱">
+                <button>搜尋</button>
+            </div>
         </div>
 
-        <div class="search-box">
-            <input type="text" placeholder="🔍 產品名稱">
-            <button>搜尋</button>
-        </div>
+        <!-- 👇 把這行的 src="" 裡面的文字換成你的「小 LOGO」圖片網址 👇 -->
+        <img src="公司金標.jpg" alt="LumaireBalloon LOGO" class="brand-logo">
+        
     </header>
 
+    <!-- 下方內容區 (不會被上方的背景蓋到) -->
     <section class="hero-section">
         <div class="photo-slider-container" id="sliderContainer">
             <div class="photo-track" id="photoTrack">
