@@ -7,36 +7,58 @@
     <style>
         body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
         
-        /* 頂部區域 */
-        .header-container {position: relative; background-color: #f2efe9; padding: 20px 20px 25px 20px; text-align: center; }
-        
-        /* 漢堡選單 */
-        .hamburger-menu {position: absolute; top: 25px; left: 25px; display: flex; flex-direction: column; justify-content: space-between; width: 26px; height: 18px; cursor: pointer; z-index: 1000; }
-        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; transition: all 0.3s ease; }
-        
-        /* --- 新增：品牌大背景與小LOGO區塊 --- */
-        .brand-banner {
-            width: 100%;
-            max-width: 800px; /* 限制最大寬度，與下方內容對齊 */
-            height: 160px;    /* 大背景的高度，可依需求調整數字 */
-            margin: 0 auto 20px auto; 
-            background-color: #e6dfd5; /* 圖片載入前的底色 */
-            /* 👇 把這行括號內的文字換成你的大背景圖片檔名 👇 */
-            background-image: url('替換成你的大背景圖片網址.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 12px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(140, 115, 97, 0.08);
-        }
-        .brand-logo {
-            width: 130px; /* 👇 調整小 LOGO 的大小 👇 */
-            height: auto;
-            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.15)); /* 加一點淡淡陰影讓LOGO更立體 */
-        }
+ /* =========================================
+   1. 頂部導覽列 (透明浮動在最上層)
+   ========================================= */
+.header-container {
+    position: absolute; /* 讓導覽列脫離排版，浮在畫面上方 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent; /* 拿掉原本的底色，改為透明 */
+    padding: 20px 20px 25px 20px;
+    z-index: 100; /* 確保選單與搜尋列不會被圖片蓋住 */
+    box-sizing: border-box; /* 確保 padding 不會撐破 100% 寬度 */
+    display: flex;
+    justify-content: space-between; /* 如果你有搜尋列，這能讓漢堡和搜尋分居左右 */
+    align-items: center;
+}
+
+/* 漢堡選單線條 (加上一點微陰影，避免在太亮或太暗的背景圖中糊掉) */
+.hamburger-menu {
+    position: relative; /* 取代原本的 absolute，配合 flex 排版 */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.hamburger-menu .bar {
+    height: 2px;
+    width: 25px; /* 給定明確寬度 */
+    background-color: #8c7361; /* 原本的咖啡色 */
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.7); /* 白色光暈增加對比 */
+}
+
+/* =========================================
+   2. 主視覺大背景圖 (Hero Banner)
+   ========================================= */
+.brand-banner {
+    width: 100%;
+    height: 70vh; /* 佔據螢幕 70% 高度，若要全滿可改為 100vh */
+    /* 這裡替換成你的氣球背景圖網址，並加上一層淡淡的黑色漸層讓上方選單更清楚 */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('你的背景圖網址.jpg'); 
+    background-size: cover; /* 保持比例填滿 */
+    background-position: center; /* 視覺置中 */
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
         /* 搜尋框 */
         .search-box {display: flex; justify-content: center; align-items: center; max-width: 400px; margin: 0 auto; }
