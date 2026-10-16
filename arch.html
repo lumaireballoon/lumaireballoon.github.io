@@ -189,7 +189,7 @@
             margin-bottom: 12px; 
         }
 
-        /* 頁面內的 LINE 諮詢按鈕（白底綠字經典風格） */
+        /* 頁面內的 LINE 諮詢按鈕（綠底白字 LINE 官方氣泡風格） */
         .line-btn-container {
             text-align: center; 
             margin-top: 40px; 
@@ -199,74 +199,66 @@
             align-items: center; 
             justify-content: center; 
             gap: 10px; 
-            background-color: #ffffff; /* 白底 */
-            color: #06C755; /* 綠字 */
-            border: 2px solid #06C755; /* 綠框 */
+            background-color: #06C755; /* 官方綠底 */
+            color: #ffffff; /* 白字 */
             text-decoration: none; 
             font-size: 15px; 
             font-weight: bold; 
-            padding: 10px 26px; 
+            padding: 12px 28px; 
             border-radius: 30px; 
-            box-shadow: 0 4px 12px rgba(6, 199, 85, 0.15); 
+            box-shadow: 0 4px 12px rgba(6, 199, 85, 0.35); 
             transition: all 0.2s ease; 
         }
         .line-btn:hover {
-            background-color: #06C755; 
-            color: #ffffff; 
+            background-color: #05b34c; 
             transform: translateY(-2px); 
-            box-shadow: 0 6px 16px rgba(6, 199, 85, 0.3); 
+            box-shadow: 0 6px 16px rgba(6, 199, 85, 0.45); 
         }
 
-        /* 右下角常駐浮動式 LINE 官方泡泡小幫手（白底綠字氣泡設計） */
+        /* 右下角常駐浮動式 LINE 官方綠底氣泡小幫手 */
         .floating-line-btn {
             position: fixed; 
             bottom: 25px; 
             right: 25px; 
-            background-color: #ffffff; 
-            color: #06C755; 
-            width: 60px; 
-            height: 60px; 
+            background-color: #06C755; /* 綠底 */
+            width: 64px; 
+            height: 64px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); 
             z-index: 9999; 
             transition: all 0.3s ease; 
             text-decoration: none; 
-            border: 2px solid #06C755;
         }
         .floating-line-btn:hover {
-            background-color: #06C755; 
+            background-color: #05b34c; 
             transform: scale(1.08); 
-            box-shadow: 0 6px 20px rgba(6, 199, 85, 0.4); 
-        }
-        .floating-line-btn:hover .line-bubble-svg {
-            fill: #ffffff; /* 懸停時圖示變白 */
+            box-shadow: 0 6px 20px rgba(6, 199, 85, 0.6); 
         }
 
-        /* 內嵌高畫質 LINE 官方氣泡向量圖示 */
-        .line-bubble-svg {
-            width: 32px;
-            height: 32px;
-            fill: #06C755; /* 預設為官方綠色 */
-            transition: fill 0.2s ease;
+        /* LINE 官方正版綠底白字氣泡向量圖示 */
+        .line-official-svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff; /* 白字 */
         }
-        .line-btn .line-bubble-svg {
-            width: 22px;
-            height: 22px;
+        .floating-line-btn .line-official-svg {
+            width: 38px;
+            height: 38px;
         }
 
         @media (max-width: 768px) {
             .floating-line-btn {
                 bottom: 20px; 
                 right: 20px; 
-                width: 54px; 
-                height: 54px; 
+                width: 56px; 
+                height: 56px; 
             }
-            .line-bubble-svg {
-                width: 28px;
-                height: 28px;
+            .floating-line-btn .line-official-svg {
+                width: 32px;
+                height: 32px;
             }
         }
     </style>
@@ -306,8 +298,8 @@
 
         <div class="line-btn-container">
             <a href="https://lin.ee/709rU13" class="line-btn" target="_blank">
-                <!-- 官方 LINE 泡泡圖示 -->
-                <svg class="line-bubble-svg" viewBox="0 0 24 24">
+                <!-- 官方 LINE 綠底白字圖示 -->
+                <svg class="line-official-svg" viewBox="0 0 24 24">
                     <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H18.73v1.181h.635c.349 0 .63.285.63.63 0 .346-.281.63-.63.63h-1.26a.631.631 0 01-.63-.63V9.232c0-.346.281-.63.63-.63h1.26zm-2.825 3.076h-1.18v-2.447h1.18v2.447zm-3.528-2.447h-1.18v3.077h1.18v-3.077zm-2.446 0H9.385v3.077h1.18v-3.077zm-3.266 0H4.76v3.077h1.18v-1.897h1.18v-.607H5.94v-.573h1.18v-.6h-1.18zM12 2C6.477 2 2 5.839 2 10.55c0 2.628 1.348 4.975 3.454 6.516-.134.981-.685 3.442-.782 3.931-.055.276.109.544.385.498.24-.041 3.252-1.399 4.417-1.954.912.253 1.884.389 2.876.389 5.523 0 10-3.839 10-8.55S17.523 2 12 2z"/>
                 </svg>
                 LINE 快速諮詢
@@ -340,9 +332,9 @@
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <!-- 右下角常駐浮動式 LINE 官方白底綠字泡泡小幫手 -->
+    <!-- 右下角常駐浮動式 LINE 官方綠底氣泡小幫手 -->
     <a href="https://lin.ee/709rU13" class="floating-line-btn" target="_blank" title="LINE 快速諮詢">
-        <svg class="line-bubble-svg" viewBox="0 0 24 24">
+        <svg class="line-official-svg" viewBox="0 0 24 24">
             <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H18.73v1.181h.635c.349 0 .63.285.63.63 0 .346-.281.63-.63.63h-1.26a.631.631 0 01-.63-.63V9.232c0-.346.281-.63.63-.63h1.26zm-2.825 3.076h-1.18v-2.447h1.18v2.447zm-3.528-2.447h-1.18v3.077h1.18v-3.077zm-2.446 0H9.385v3.077h1.18v-3.077zm-3.266 0H4.76v3.077h1.18v-1.897h1.18v-.607H5.94v-.573h1.18v-.6h-1.18zM12 2C6.477 2 2 5.839 2 10.55c0 2.628 1.348 4.975 3.454 6.516-.134.981-.685 3.442-.782 3.931-.055.276.109.544.385.498.24-.041 3.252-1.399 4.417-1.954.912.253 1.884.389 2.876.389 5.523 0 10-3.839 10-8.55S17.523 2 12 2z"/>
         </svg>
     </a>
