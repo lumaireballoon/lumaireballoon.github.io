@@ -18,7 +18,8 @@
             background-color: #2b2b2b; /* 圖片若沒載入時的底色 */
             
             /* 👇 請將引號內換成你的大背景圖片網址 👇 */
-            background-image: url(公司背景Logo.jpg); 
+           /* 把原本單純的 url(...) 替換成下面這行，加上 linear-gradient 遮罩 */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(公司背景Logo.jpg);
             
             background-size: cover; /* 讓圖片保持比例填滿，絕對不變形 */
             background-position: center; 
