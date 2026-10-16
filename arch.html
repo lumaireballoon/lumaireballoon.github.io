@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>氣球柱、拱門、球牆 | LumaireBalloon 嶼光製氣</title>
+    <style>
+        body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
+        .header-container {position: relative; background-color: #f2efe9; padding: 20px; text-align: center; }
+        .hamburger-menu {position: absolute; top: 25px; left: 25px; display: flex; flex-direction: column; justify-content: space-between; width: 26px; height: 18px; cursor: pointer; z-index: 1000; }
+        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; transition: all 0.3s ease; }
+        .sidebar {position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #faf7f2; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); transition: left 0.3s ease; z-index: 1001; padding-top: 60px; overflow-y: auto; }
+        .sidebar.active {left: 0; }
+        .close-btn {position: absolute; top: 15px; right: 20px; font-size: 28px; color: #8c7361; cursor: pointer; }
+        .sidebar ul {list-style: none; padding: 0; margin: 0; }
+        .sidebar ul li {border-bottom: 1px solid rgba(140, 115, 97, 0.1); }
+        .sidebar ul li a, .sidebar .dropdown-btn {text-decoration: none; color: #5c4d42; font-size: 16px; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; width: 100%; box-sizing: border-box; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; transition: color 0.2s, background-color 0.2s; }
+        .sidebar ul li a:hover, .sidebar .dropdown-btn:hover {color: #a88b74; background-color: rgba(140, 115, 97, 0.05); }
+        .dropdown-container {display: none; background-color: rgba(140, 115, 97, 0.04); padding-left: 15px; }
+        .dropdown-container.active {display: block; }
+        .dropdown-container li {border-bottom: none; }
+        .dropdown-container a {font-size: 14px; padding: 12px 25px; color: #735d4d; }
+        .arrow {transition: transform 0.3s ease; font-size: 12px; }
+        .dropdown-btn.active .arrow {transform: rotate(180deg); }
+        .overlay {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 999; }
+        .overlay.active {display: block; }
+        .title-area h1 {margin: 0; font-size: 24px; color: #8c7361; font-weight: normal; }
+        .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
 
+        /* 商品頁面專屬版面 */
+        .page-container {max-width: 900px; margin: 30px auto; padding: 0 20px; box-sizing: border-box; }
+        .page-title {text-align: center; color: #5c4d42; font-size: 24px; margin-bottom: 20px; border-bottom: 2px solid #e6dfd5; padding-bottom: 10px; }
+        .product-grid {display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .product-card {background: #fff; border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(140, 115, 97, 0.1); text-align: center; }
+        .product-img {width: 100%; height: 200px; background-color: #e6dfd5; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #8c7361; margin-bottom: 12px; }
+        .product-name {font-size: 18px; color: #5c4d42; margin: 8px 0; }
+        .product-desc {font-size: 13px; color: #8c7361; line-height: 1.5; margin-bottom: 12px; }
+
+        .line-btn-container {text-align: center; margin-top: 40px; }
+        .line-btn {display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #06C755; color: white; text-decoration: none; font-size: 15px; font-weight: bold; padding: 10px 24px; border-radius: 24px; box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3); transition: all 0.2s ease; }
+        .line-btn:hover {background-color: #05b34c; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="title-area">
+            <h1>LumaireBalloon</h1>
+            <p>嶼光製氣</p>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <h2 class="page-title">氣球柱、拱門、球牆</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">拱門照片展示區</div>
+                <h3 class="product-name">經典馬卡龍氣球拱門</h3>
+                <p class="product-desc">適用於開幕儀式、品牌活動入口，色系均可專屬客製化。</p>
+            </div>
+            <div class="product-card">
+                <div class="product-img">氣球柱照片展示區</div>
+                <h3 class="product-name">客製化造型氣球柱</h3>
+                <p class="product-desc">適合店面門口迎接賓客、婚禮入口佈置。</p>
+            </div>
+            <div class="product-card">
+                <div class="product-img">球牆照片展示區</div>
+                <h3 class="product-name">主題拍照氣球牆</h3>
+                <p class="product-desc">打造極具視覺震撼的拍照背景，適合各式派對與展覽。</p>
+            </div>
+        </div>
+
+        <div class="line-btn-container">
+            <a href="https://lin.ee/709rU13" class="line-btn" target="_blank"> 💬 預約或諮詢此系列佈置 </a>
+        </div>
+    </main>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="#">最新消息</a></li>
+            <li>
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <span>商品列表</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <ul class="dropdown-container" id="productDropdown">
+                    <li><a href="arch.html">氣球柱、拱門、球牆</a></li>
+                    <li><a href="#">氣球花束</a></li>
+                    <li><a href="#">泡泡球</a></li>
+                    <li><a href="#">乳膠氣球</a></li>
+                    <li><a href="#">客製化佈置</a></li>
+                </ul>
+            </li>
+            <li><a href="#">關於我們</a></li>
+            <li><a href="#">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleDropdown() {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContainer = document.getElementById('productDropdown');
+            dropdownBtn.classList.toggle('active');
+            dropdownContainer.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
