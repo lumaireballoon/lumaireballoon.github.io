@@ -184,6 +184,32 @@
                 padding: 10px 15px; 
             }
         }
+
+       /* =========================================
+           電腦大螢幕版優化 (螢幕寬度 1024px 以上觸發)
+           ========================================= */
+        @media (min-width: 1024px) {
+            .hero-header {
+                /* 稍微增加一點高度，讓畫面更大氣 */
+                height: 65vh; 
+                
+                /* 👇 關鍵1：將底色設定為你圖片的灰藍色 (我抓了大概的色碼，你可以微調) 👇 */
+                background-color: #697184; 
+            }
+            
+            .hero-header::before {
+                /* 👇 關鍵2：讓圖片完整顯示，絕對不裁切 👇 */
+                background-size: contain; 
+                
+                /* 讓圖片置中，如果有需要可以微調 (例如 center 10% 讓它稍微偏上) */
+                background-position: center; 
+            }
+            
+            /* 電腦版可以把小 LOGO 稍微往下推一點，避開導覽列與背景的文字 */
+            .brand-logo {
+                margin-top: 60px;
+            }
+        }
         
     </style>
 </head>
