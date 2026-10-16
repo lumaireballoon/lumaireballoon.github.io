@@ -32,4 +32,171 @@
         .search-box button:hover {background-color: #735d4d; }
         .hero-section {display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 30px auto; padding: 0 20px; gap: 25px; box-sizing: border-box; }
         .photo-slider-container {width: 100%; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 15px rgba(140, 115, 97, 0.15); background-color: #f2efe9; }
-        .photo-track {
+        .photo-track {display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 15px; -webkit-overflow-scrolling: touch; }
+        .photo-track::-webkit-scrollbar {display: none; }
+        .photo-card {flex: 0 0 100%; height: 320px; scroll-snap-align: center; background-color: #e6dfd5; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8c7361; font-size: 15px; border: 2px dashed #b5a493; }
+        .fade-text-container {width: 100%; text-align: center; opacity: 0; transform: translateY(20px); animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.3s; }
+        .fade-text-container h2 {font-size: 26px; color: #5c4d42; margin: 0 0 10px 0; letter-spacing: 3px; font-weight: bold; }
+        .fade-text-container p {font-size: 14px; color: #8c7361; margin: 0 0 20px 0; letter-spacing: 1.5px; line-height: 1.8; }
+        .line-btn {display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #06C755; color: white; text-decoration: none; font-size: 15px; font-weight: bold; padding: 10px 24px; border-radius: 24px; box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3); transition: all 0.2s ease; letter-spacing: 1px; }
+        .line-btn:hover {background-color: #05b34c; transform: translateY(-2px); box-shadow: 0 6px 14px rgba(6, 199, 85, 0.4); }
+        @keyframes fadeInUp {0% {opacity: 0; transform: translateY(20px); } 100% {opacity: 1; transform: translateY(0); } }
+
+        /* ======== 新增樣式開始 ======== */
+        
+        /* 服務精選項目 */
+        .services-section {max-width: 1000px; margin: 50px auto; padding: 0 20px; text-align: center; }
+        .services-title {color: #5c4d42; font-size: 24px; margin-bottom: 30px; letter-spacing: 2px; }
+        .services-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .service-card {background-color: #fff; border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 15px rgba(140, 115, 97, 0.08); border: 1px solid #f2efe9; transition: transform 0.3s ease; cursor: pointer; }
+        .service-card:hover {transform: translateY(-5px); box-shadow: 0 8px 25px rgba(140, 115, 97, 0.15); }
+        .service-card h3 {color: #8c7361; margin: 0 0 10px 0; font-size: 18px; }
+        .service-card p {color: #a88b74; font-size: 14px; margin: 0; }
+        
+        @media (max-width: 768px) {
+            .services-grid {grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .services-grid {grid-template-columns: 1fr; }
+        }
+
+        /* 懸浮 LINE 按鈕 */
+        .floating-line-btn {position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
+        .floating-line-btn:hover {transform: scale(1.1); }
+        
+        /* ======== 新增樣式結束 ======== */
+
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="title-area">
+            <h1>LumaireBalloon</h1>
+            <p>嶼光製氣</p>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="🔍 產品名稱">
+            <button>搜尋</button>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="photo-slider-container" id="sliderContainer">
+            <div class="photo-track" id="photoTrack">
+                <div class="photo-card">相片展示區 01<br><span style="font-size:12px; margin-top:5px;">(支援手動左右滑動)</span></div>
+                <div class="photo-card">相片展示區 02</div>
+                <div class="photo-card">相片展示區 03</div>
+            </div>
+        </div>
+        <div class="fade-text-container">
+            <h2>輕盈如夢聚光成嶼</h2>
+            <p>將歡聚化為永恆，點亮每個浪漫瞬間。<br>嶼光—為每個平凡日子點亮不凡。</p>
+            
+            <!-- 修改：將原本按鈕加上官方 LINE SVG 圖示 -->
+            <a href="https://lin.ee/709rU13" class="line-btn" target="_blank"> 
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff">
+                    <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992z"/>
+                </svg>
+                Line 快速諮詢 
+            </a>
+        </div>
+    </section>
+
+    <!-- 新增：服務精選項目 (6格) -->
+    <section class="services-section">
+        <h2 class="services-title">服務精選項目</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>氣球拱門</h3>
+                <p>吸睛迎賓，開幕必備</p>
+            </div>
+            <div class="service-card">
+                <h3>造型球牆</h3>
+                <p>客製化主題，拍照打卡最愛</p>
+            </div>
+            <div class="service-card">
+                <h3>精緻氣球花束</h3>
+                <p>浪漫告白、生日驚喜</p>
+            </div>
+            <div class="service-card">
+                <h3>派對佈置</h3>
+                <p>專屬色彩，點亮派對氛圍</p>
+            </div>
+            <div class="service-card">
+                <h3>乳膠氣球串</h3>
+                <p>點綴空間，輕盈夢幻</p>
+            </div>
+            <div class="service-card">
+                <h3>爆破驚喜球</h3>
+                <p>性別揭曉、求婚高潮</p>
+            </div>
+        </div>
+    </section>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="#">最新消息</a></li>
+            <li>
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <span>商品列表</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <ul class="dropdown-container" id="productDropdown">
+                    <li><a href="arch.html">氣球柱、拱門、球牆</a></li>
+                    <li><a href="#">氣球花束</a></li>
+                    <li><a href="#">泡泡球</a></li>
+                    <li><a href="#">乳膠氣球</a></li>
+                    <li><a href="#">客製化佈置</a></li>
+                </ul>
+            </li>
+            <li><a href="#">關於我們</a></li>
+            <li><a href="#">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- 新增：右下角懸浮 LINE 按鈕 -->
+    <a href="https://lin.ee/709rU13" class="floating-line-btn" target="_blank" title="LINE 快速諮詢">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="#ffffff">
+            <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992z"/>
+        </svg>
+    </a>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleDropdown() {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContainer = document.getElementById('productDropdown');
+            dropdownBtn.classList.toggle('active');
+            dropdownContainer.classList.toggle('active');
+        }
+
+        const track = document.getElementById('photoTrack');
+        let autoSlideInterval = setInterval(() => {
+            const cardWidth = track.querySelector('.photo-card').offsetWidth + 15;
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+                track.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            }
+        }, 3000);
+
+        track.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
+        track.addEventListener('mousedown', () => clearInterval(autoSlideInterval));
+    </script>
+</body>
+</html>
