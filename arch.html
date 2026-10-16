@@ -189,7 +189,7 @@
             margin-bottom: 12px; 
         }
 
-        /* 頁面內的 LINE 諮詢按鈕（綠底白字 LINE 官方氣泡風格） */
+        /* 頁面內的 LINE 諮詢按鈕 */
         .line-btn-container {
             text-align: center; 
             margin-top: 40px; 
@@ -198,11 +198,11 @@
             display: inline-flex; 
             align-items: center; 
             justify-content: center; 
-            gap: 10px; 
-            background-color: #06C755; /* 官方綠底 */
-            color: #ffffff; /* 白字 */
+            gap: 12px; 
+            background-color: #06C755; 
+            color: #ffffff; 
             text-decoration: none; 
-            font-size: 15px; 
+            font-size: 16px; 
             font-weight: bold; 
             padding: 12px 28px; 
             border-radius: 30px; 
@@ -215,14 +215,14 @@
             box-shadow: 0 6px 16px rgba(6, 199, 85, 0.45); 
         }
 
-        /* 右下角常駐浮動式 LINE 官方綠底氣泡小幫手 */
+        /* 右下角常駐浮動小幫手 */
         .floating-line-btn {
             position: fixed; 
             bottom: 25px; 
             right: 25px; 
-            background-color: #06C755; /* 綠底 */
-            width: 64px; 
-            height: 64px; 
+            background-color: #06C755; 
+            width: 60px; 
+            height: 60px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
@@ -238,27 +238,25 @@
             box-shadow: 0 6px 20px rgba(6, 199, 85, 0.6); 
         }
 
-        /* LINE 官方正版綠底白字氣泡向量圖示 */
-        .line-official-svg {
-            width: 24px;
+        /* 重點：使用純高解析度 Image Data 渲染正版 LINE 氣泡 */
+        .line-logo-img {
             height: 24px;
-            fill: #ffffff; /* 白字 */
+            width: auto;
+            display: block;
         }
-        .floating-line-btn .line-official-svg {
-            width: 38px;
-            height: 38px;
+        .floating-line-btn .line-logo-img {
+            height: 34px;
         }
 
         @media (max-width: 768px) {
             .floating-line-btn {
                 bottom: 20px; 
                 right: 20px; 
-                width: 56px; 
-                height: 56px; 
+                width: 52px; 
+                height: 52px; 
             }
-            .floating-line-btn .line-official-svg {
-                width: 32px;
-                height: 32px;
+            .floating-line-btn .line-logo-img {
+                height: 28px;
             }
         }
     </style>
@@ -298,10 +296,8 @@
 
         <div class="line-btn-container">
             <a href="https://lin.ee/709rU13" class="line-btn" target="_blank">
-                <!-- 官方 LINE 綠底白字圖示 -->
-                <svg class="line-official-svg" viewBox="0 0 24 24">
-                    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H18.73v1.181h.635c.349 0 .63.285.63.63 0 .346-.281.63-.63.63h-1.26a.631.631 0 01-.63-.63V9.232c0-.346.281-.63.63-.63h1.26zm-2.825 3.076h-1.18v-2.447h1.18v2.447zm-3.528-2.447h-1.18v3.077h1.18v-3.077zm-2.446 0H9.385v3.077h1.18v-3.077zm-3.266 0H4.76v3.077h1.18v-1.897h1.18v-.607H5.94v-.573h1.18v-.6h-1.18zM12 2C6.477 2 2 5.839 2 10.55c0 2.628 1.348 4.975 3.454 6.516-.134.981-.685 3.442-.782 3.931-.055.276.109.544.385.498.24-.041 3.252-1.399 4.417-1.954.912.253 1.884.389 2.876.389 5.523 0 10-3.839 10-8.55S17.523 2 12 2z"/>
-                </svg>
+                <!-- 嵌入高清晰度的 LINE 官方綠底氣泡圖案 -->
+                <img class="line-logo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%2306C755' d='M50,10 C27.9,10 10,25.2 10,43.9 C10,55.5 17.8,65.6 29.5,71.5 C28.1,76.5 25.1,83.9 24.8,84.7 C24.5,85.5 25.3,86.1 26,85.6 C31.8,81.5 40.5,75.4 44.5,72.6 C46.3,73 48.1,73.2 50,73.2 C72.1,73.2 90,58 90,39.3 C90,25.2 72.1,10 50,10 Z'/><text x='50' y='49' font-family='Arial-BoldMT, Arial, sans-serif' font-weight='bold' font-size='22' fill='%23ffffff' text-anchor='middle' dominant-baseline='central'>LINE</text></svg>" alt="LINE">
                 LINE 快速諮詢
             </a>
         </div>
@@ -332,11 +328,9 @@
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <!-- 右下角常駐浮動式 LINE 官方綠底氣泡小幫手 -->
+    <!-- 右下角常駐浮動式 LINE 小幫手 -->
     <a href="https://lin.ee/709rU13" class="floating-line-btn" target="_blank" title="LINE 快速諮詢">
-        <svg class="line-official-svg" viewBox="0 0 24 24">
-            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H18.73v1.181h.635c.349 0 .63.285.63.63 0 .346-.281.63-.63.63h-1.26a.631.631 0 01-.63-.63V9.232c0-.346.281-.63.63-.63h1.26zm-2.825 3.076h-1.18v-2.447h1.18v2.447zm-3.528-2.447h-1.18v3.077h1.18v-3.077zm-2.446 0H9.385v3.077h1.18v-3.077zm-3.266 0H4.76v3.077h1.18v-1.897h1.18v-.607H5.94v-.573h1.18v-.6h-1.18zM12 2C6.477 2 2 5.839 2 10.55c0 2.628 1.348 4.975 3.454 6.516-.134.981-.685 3.442-.782 3.931-.055.276.109.544.385.498.24-.041 3.252-1.399 4.417-1.954.912.253 1.884.389 2.876.389 5.523 0 10-3.839 10-8.55S17.523 2 12 2z"/>
-        </svg>
+        <img class="line-logo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%2306C755' d='M50,10 C27.9,10 10,25.2 10,43.9 C10,55.5 17.8,65.6 29.5,71.5 C28.1,76.5 25.1,83.9 24.8,84.7 C24.5,85.5 25.3,86.1 26,85.6 C31.8,81.5 40.5,75.4 44.5,72.6 C46.3,73 48.1,73.2 50,73.2 C72.1,73.2 90,58 90,39.3 C90,25.2 72.1,10 50,10 Z'/><text x='50' y='49' font-family='Arial-BoldMT, Arial, sans-serif' font-weight='bold' font-size='22' fill='%23ffffff' text-anchor='middle' dominant-baseline='central'>LINE</text></svg>" alt="LINE">
     </a>
 
     <script>
