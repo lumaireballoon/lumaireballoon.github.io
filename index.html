@@ -66,8 +66,8 @@
             .services-grid {grid-template-columns: 1fr; }
         }
 
-        /* 右下角懸浮 LINE 按鈕樣式 (整體放大版) */
-        .floating-line-btn {position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
+        /* 右下角懸浮 LINE 按鈕樣式 (調整為適中尺寸) */
+        .floating-line-btn {position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
         .floating-line-btn:hover {transform: scale(1.1); }
         
     </style>
@@ -176,9 +176,9 @@
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <!-- 右下角懸浮 LINE 按鈕 (標準對話框尾巴外型 + 綠色字體) -->
+    <!-- 右下角懸浮 LINE 按鈕 (調整尺寸版) -->
     <a href="https://lin.ee/709rU13" class="floating-line-btn" target="_blank" title="LINE 快速諮詢">
-        <svg viewBox="0 0 24 24" width="46" height="46" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 24 24" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
             <!-- 標準 LINE 對話框白色外框與尖角尾巴 -->
             <path fill="#ffffff" d="M12 2C6.477 2 2 5.923 2 10.75c0 2.766 1.503 5.23 3.844 6.836-.14.523-.526 1.956-.604 2.257-.107.412.15.807.545.719.345-.077 2.146-.484 3.142-.716C10.22 20.15 11.085 20.25 12 20.25c5.523 0 10-3.923 10-8.75S17.523 2 12 2z"/>
             <!-- 綠色的 LINE 文字上層 -->
