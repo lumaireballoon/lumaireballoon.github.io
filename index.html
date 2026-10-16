@@ -53,12 +53,13 @@
             height: 18px;
             cursor: pointer;
         }
-        .hamburger-menu .bar {
+       .hamburger-menu .bar {
             height: 2px;
             width: 100%;
-            background-color: #fff; /* 改成白色，在深色背景圖上比較清楚 */
+            background-color: #fff; /* 保持白色 */
             border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.6); /* 加陰影避免糊掉 */
+            /* 👇 把原本的 box-shadow 替換或改成這行更有立體感、會發光的陰影 👇 */
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.5); 
             transition: all 0.3s ease;
         }
 
