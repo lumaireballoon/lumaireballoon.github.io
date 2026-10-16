@@ -154,6 +154,35 @@
         /* 右下角懸浮 LINE 按鈕 */
         .floating-line-btn {position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
         .floating-line-btn:hover {transform: scale(1.1); }
+
+       /* =========================================
+           手機版專屬優化 (螢幕寬度 768px 以下觸發) 
+           ========================================= */
+        @media (max-width: 768px) {
+            
+            /* 1. 調整大背景區塊的高度，避免背景圖被切掉太多 */
+            .hero-header {
+                height: 40vh;         /* 稍微縮小手機版的高度 */
+                min-height: 250px;    /* 降低最小高度限制 */
+            }
+
+            /* 讓背景圖在手機上盡量完整顯示 */
+            .hero-header::before {
+                background-size: contain; /* 讓圖片完整縮放進去，不裁切兩側 */
+                background-position: center 20%; /* 稍微把背景圖往上挪一點 */
+            }
+
+            /* 2. 縮小置中小 LOGO，並調回原本的高度 */
+            .brand-logo {
+                width: 120px;       /* 手機版把 LOGO 縮小 */
+                margin-top: 10px;   /* 減少往下推的距離，避免畫面太擠 */
+            }
+            
+            /* 3. 微調頂部導覽列，讓選單跟搜尋框不要貼得太緊 */
+            .top-nav {
+                padding: 10px 15px; 
+            }
+        }
         
     </style>
 </head>
