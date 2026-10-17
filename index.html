@@ -97,14 +97,15 @@
             font-size: 14px;
         }
 
-        /* 置中疊加的小 LOGO */
+        /* 置中疊加的小 LOGO (預設：電腦大螢幕版) */
         .brand-logo {
             position: relative;
-            width: 220px; 
+            /* 👇 關鍵修正：電腦版放寬放大 (原本 320px -> 420px) 👇 */
+            width: 420px; 
+            max-width: 85%;
             height: auto;
             z-index: 10;
             filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3)); 
-            /* 👇 關鍵：一般裝置下移 40px (原本 40px -> 80px) 👇 */
             margin-top: 80px; 
         }
 
@@ -150,24 +151,51 @@
         .service-card-item h3 {color: #8c7361; margin: 0 0 10px 0; font-size: 18px; }
         .service-card-item p {color: #a88b74; font-size: 14px; margin: 0; }
         
-        @media (max-width: 768px) {
-            .services-grid {grid-template-columns: repeat(2, 1fr); }
-            .hero-header {height: 35vh; min-height: 200px; }
-            .hero-header::before {background-size: cover; background-position: center center; }
-            /* 👇 關鍵：手機版下移 20px (原本 50px -> 70px) 👇 */
-            .brand-logo {width: 160px; margin-top: 70px; }
-            .top-nav {padding: 10px 15px; }
-        }
-
-        @media (min-width: 1024px) {
-            .hero-header {height: 65vh; }
-            .hero-header::before {background-size: cover; background-position: center center; }
-            /* 👇 關鍵：電腦大螢幕版下移 40px (原本 60px -> 100px) 👇 */
-            .brand-logo {width: 320px; margin-top: 100px; }
-        }
-        
         .floating-line-btn {position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
         .floating-line-btn:hover {transform: scale(1.1); }
+
+        /* ===================================================
+           【LumaireBalloon 網頁設計專用】五畫面響應式萬用模板
+           =================================================== */
+
+        /* 1-A. 平板裝置：橫式 (Landscape) - 寬度 1024px 以下，螢幕打橫 */
+        @media (max-width: 1024px) and (orientation: landscape) {
+            .hero-header { height: 55vh; min-height: 280px; }
+            .brand-logo { width: 320px; margin-top: 60px; }
+            .services-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        }
+
+        /* 1-B. 平板裝置：直式 (Portrait) - 寬度 1024px 以下，螢幕直拿 */
+        @media (max-width: 1024px) and (orientation: portrait) {
+            .hero-header { height: 40vh; min-height: 260px; }
+            .brand-logo { width: 300px; margin-top: 70px; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        }
+
+        /* 2-A. 手機裝置：一般直式 (Portrait) - 寬度 768px 以下 */
+        @media (max-width: 768px) {
+            .hero-header { height: 35vh; min-height: 220px; }
+            /* 👇 關鍵修正：手機直向 Logo 大幅放大 (原本 160px -> 240px) 👇 */
+            .brand-logo { width: 240px; margin-top: 60px; }
+            .top-nav { padding: 12px 15px; }
+            .search-box { max-width: 160px; }
+            .search-box input { height: 32px; font-size: 12px; }
+            .search-box button { height: 32px; font-size: 12px; padding: 0 10px; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .service-card-item { padding: 15px; }
+            .service-img-placeholder { height: 120px; }
+            .fade-text-container h2 { font-size: 20px; }
+            .fade-text-container p { font-size: 13px; }
+        }
+
+        /* 2-B. 手機裝置：橫式 (Landscape) - 寬度 768px 以下，螢幕打橫 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero-header { height: 75vh; min-height: 200px; }
+            .brand-logo { width: 220px; margin-top: 45px; }
+            .top-nav { padding: 10px 15px; }
+            .photo-card { height: 220px; }
+            .services-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        }
     </style>
 </head>
 <body>
