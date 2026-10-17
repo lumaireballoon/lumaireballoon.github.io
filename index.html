@@ -30,11 +30,9 @@
             width: 100%;
             height: 100%;
             background-image: url('公司背景Logo.jpg'); 
-            
             background-size: cover; 
             background-position: center center; 
             background-repeat: no-repeat;
-            
             opacity: 0.5; 
             z-index: 1; 
         }
@@ -100,7 +98,6 @@
         /* 置中疊加的小 LOGO (預設：電腦大螢幕版) */
         .brand-logo {
             position: relative;
-            /* 👇 關鍵修正：電腦版放寬放大 (原本 320px -> 420px) 👇 */
             width: 420px; 
             max-width: 85%;
             height: auto;
@@ -161,7 +158,8 @@
         /* 1-A. 平板裝置：橫式 (Landscape) - 寬度 1024px 以下，螢幕打橫 */
         @media (max-width: 1024px) and (orientation: landscape) {
             .hero-header { height: 55vh; min-height: 280px; }
-            .brand-logo { width: 320px; margin-top: 60px; }
+            /* 👇 修改處：平板橫式 Logo 位置下調 (margin-top 從 60px 增加到 100px) 👇 */
+            .brand-logo { width: 320px; margin-top: 100px; }
             .services-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
         }
 
@@ -175,15 +173,17 @@
         /* 2-A. 手機裝置：一般直式 (Portrait) - 寬度 768px 以下 */
         @media (max-width: 768px) {
             .hero-header { height: 35vh; min-height: 220px; }
-            /* 👇 關鍵修正：手機直向 Logo 大幅放大 (原本 160px -> 240px) 👇 */
             .brand-logo { width: 240px; margin-top: 60px; }
             .top-nav { padding: 12px 15px; }
             .search-box { max-width: 160px; }
             .search-box input { height: 32px; font-size: 12px; }
             .search-box button { height: 32px; font-size: 12px; padding: 0 10px; }
+            /* 保持手機直式為2個並排，並微調間距使畫面舒服 */
             .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .service-card-item { padding: 15px; }
-            .service-img-placeholder { height: 120px; }
+            .service-card-item { padding: 12px; }
+            .service-img-placeholder { height: 110px; margin-bottom: 10px; }
+            .service-card-item h3 { font-size: 16px; margin-bottom: 5px; }
+            .service-card-item p { font-size: 12px; }
             .fade-text-container h2 { font-size: 20px; }
             .fade-text-container p { font-size: 13px; }
         }
@@ -191,7 +191,8 @@
         /* 2-B. 手機裝置：橫式 (Landscape) - 寬度 768px 以下，螢幕打橫 */
         @media (max-width: 768px) and (orientation: landscape) {
             .hero-header { height: 75vh; min-height: 200px; }
-            .brand-logo { width: 220px; margin-top: 45px; }
+            /* 👇 修改處：手機橫式 Logo 位置下調 (margin-top 從 45px 增加到 80px) 👇 */
+            .brand-logo { width: 220px; margin-top: 80px; }
             .top-nav { padding: 10px 15px; }
             .photo-card { height: 220px; }
             .services-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
