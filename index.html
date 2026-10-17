@@ -158,7 +158,6 @@
         /* 1-A. 平板裝置：橫式 (Landscape) - 針對較大平板提升相容寬度至 1180px */
         @media (max-width: 1180px) and (orientation: landscape) {
             .hero-header { height: 55vh; min-height: 280px; }
-            /* LOGO 上方邊距調整為 120px，避免 250px 造成超出容器被隱藏 */
             .brand-logo { width: 400px; margin-top: 120px; }
             .services-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
         }
@@ -178,7 +177,6 @@
             .search-box { max-width: 160px; }
             .search-box input { height: 32px; font-size: 12px; }
             .search-box button { height: 32px; font-size: 12px; padding: 0 10px; }
-            /* 保持手機直式為2個並排，並微調間距使畫面舒服 */
             .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .service-card-item { padding: 12px; }
             .service-img-placeholder { height: 110px; margin-bottom: 10px; }
@@ -195,6 +193,21 @@
             .top-nav { padding: 10px 15px; }
             .photo-card { height: 220px; }
             .services-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        }
+
+        /* ===================================================
+           3. 電腦大螢幕專屬修正 (寬度 1181px 以上)
+           =================================================== */
+        @media (min-width: 1181px) {
+            .hero-header {
+                height: 55vh; 
+            }
+            .hero-header::before {
+                /* 讓電腦版的背景圖片完整顯示，避免背景字體被裁切 */
+                background-size: contain; 
+                background-position: top center; 
+                background-color: #faf7f2; 
+            }
         }
     </style>
 </head>
