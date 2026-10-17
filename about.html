@@ -8,7 +8,7 @@
         body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
         .header-container {position: relative; background-color: #f2efe9; padding: 20px; text-align: center; }
         .hamburger-menu {
-            position: fixed; /* 👈 改為固定定位，滑動時才不會跑掉 */
+            position: fixed; 
             top: 25px;
             left: 25px;
             display: flex;
@@ -17,9 +17,9 @@
             width: 26px;
             height: 18px;
             cursor: pointer;
-            z-index: 9999; /* 👈 提高層級，確保不會被下方的內容蓋過去 */
+            z-index: 9999; 
         }
-        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; /* 👇 關鍵：加入這行陰影/發光效果 👇 */
+        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; 
             box-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5); 
             transition: all 0.3s ease;
         }
@@ -54,6 +54,16 @@
             box-sizing: border-box;
         }
 
+        /* 👇 修正：補上標題的顏色與樣式 👇 */
+        .about-content h2 {
+            text-align: center;
+            color: #8c7361; /* 品牌主色 */
+            letter-spacing: 3px;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
        /* =========================================
            關於我們：預設背景 LOGO (針對電腦大螢幕)
            ========================================= */
@@ -66,8 +76,6 @@
             width: 100%;  
             height: 100%; 
             background-image: url(公司金標Logo.svg); 
-            
-            /* 電腦版區塊較寬，百分比不用太大即可填滿視覺 */
             background-size: 90%; 
             background-repeat: no-repeat;
             background-position: center center;
@@ -83,7 +91,6 @@
         /* 1-A. 平板裝置 (橫式 Landscape - 寬度較寬) */
         @media (max-width: 1024px) and (orientation: landscape) {
             .about-section::before {
-                /* 這裡填入你覺得橫式「完美」的尺寸，例如 90% 或 100% */
                 background-size: 100%; 
             }
         }
@@ -91,11 +98,10 @@
         /* 1-B. 平板裝置 (直式 Portrait - 寬度較窄) */
         @media (max-width: 1024px) and (orientation: portrait) {
             .about-section::before {
-                /* 直式畫面較窄長，這裡可以把百分比調大（例如 150%）來達到平衡 */
                 background-size: 150%; 
                 
-                /* 如果直式也會像手機一樣太靠左或靠右，也可以在這裡獨立設定位置 */
-                /* background-position: center 65%; */ 
+                /* 👇 修正：取消註解並設定為 center 65%，讓 Logo 往下移 👇 */
+                background-position: center 80%; 
             }
         }
       /* 2. 手機裝置 (螢幕寬度 768px 以下) */
@@ -109,17 +115,8 @@
             }
             
             .about-section::before {
-                /* (保留原本設定) 手機版面非常窄長，需要較大的百分比才能讓 LOGO 看起來夠大 */
                 background-size: 200%; 
-                
-                /* 👇 關鍵：修改這裡！ 👇 */
-                /* 為了讓圖片在視覺上往右移，我們將數值調高 */
-                /* 請嘗試 95%，或是直接設為 100% 讓圖片最右側對齊容器最右側 */
                 background-position: 50% center; 
-                
-                /* 備註：
-                   如果使用 `background-position: right 20px center;` 可以更精確地讓圖片距離右側 20px
-                */
             }
         }
     </style>
