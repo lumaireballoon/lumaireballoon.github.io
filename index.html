@@ -86,13 +86,16 @@
         }
         .search-box button {
             height: 36px;
-            padding: 0 15px;
+            padding: 0 12px;
             border: none;
             background-color: #8c7361;
             color: white;
             border-radius: 0 18px 18px 0;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            writing-mode: horizontal-tb; /* 確保橫式排列 */
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         /* 置中疊加的小 LOGO (預設：電腦大螢幕版) */
@@ -211,7 +214,7 @@
             .top-nav { padding: 12px 15px; }
             .search-box { max-width: 160px; }
             .search-box input { height: 32px; font-size: 12px; }
-            .search-box button { height: 32px; font-size: 12px; padding: 0 10px; }
+            .search-box button { height: 32px; font-size: 11px; padding: 0 8px; }
             .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .service-card-item { padding: 12px; }
             .service-img-placeholder { height: 110px; margin-bottom: 10px; }
@@ -219,7 +222,6 @@
             .service-card-item p { font-size: 12px; }
             .fade-text-container h2 { font-size: 20px; }
             .fade-text-container p { font-size: 13px; }
-            /* 手機板將資訊欄改為單欄並排呈現 */
             .info-container { grid-template-columns: 1fr; gap: 30px; }
         }
 
