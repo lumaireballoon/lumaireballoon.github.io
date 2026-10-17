@@ -196,21 +196,6 @@
             .photo-card { height: 220px; }
             .services-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
         }
-
-        /* 3. 電腦大螢幕專屬修正 (寬度 1024px 以上)：修正背景文字被裁切與 Logo 位置 */
-        @media (min-width: 1024px) {
-            .hero-header {
-                height: 60vh; 
-            }
-            .hero-header::before {
-                background-size: contain; 
-                background-position: top center; 
-                background-color: #faf7f2; 
-            }
-            .brand-logo {
-                margin-top: 130px; 
-            }
-        }
     </style>
 </head>
 <body>
