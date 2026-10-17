@@ -54,19 +54,15 @@
             box-sizing: border-box;
         }
 
-        /* 👇 修正：補上標題的顏色與樣式 👇 */
         .about-content h2 {
             text-align: center;
-            color: #8c7361; /* 品牌主色 */
+            color: #8c7361; 
             letter-spacing: 3px;
             margin-top: 0;
             margin-bottom: 30px;
             font-size: 24px;
         }
 
-       /* =========================================
-           關於我們：預設背景 LOGO (針對電腦大螢幕)
-           ========================================= */
         .about-section::before {
             content: "";
             position: absolute;
@@ -84,27 +80,47 @@
             pointer-events: none;
         }
 
-      /* =========================================
+        /* 👇 新增：懸浮 LINE 按鈕專屬樣式 👇 */
+        .floating-line-btn {
+            position: fixed;
+            bottom: 25px; /* 距離螢幕底部 25px */
+            right: 25px;  /* 距離螢幕右側 25px */
+            background-color: #06C755; /* LINE 品牌綠色 */
+            width: 60px;
+            height: 60px;
+            border-radius: 50%; /* 圓形外框 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 懸浮陰影 */
+            z-index: 9998; /* 確保在最上層，但不超過漢堡選單 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* 滑鼠移過去的動態效果 */
+        .floating-line-btn:hover {
+            transform: translateY(-5px); /* 微微往上浮 */
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); /* 陰影加深 */
+        }
+        /* 👆 新增結束 👆 */
+
+        /* =========================================
            響應式設定：不同裝置的微調
            ========================================= */
         
-        /* 1-A. 平板裝置 (橫式 Landscape - 寬度較寬) */
         @media (max-width: 1024px) and (orientation: landscape) {
             .about-section::before {
                 background-size: 100%; 
             }
         }
 
-        /* 1-B. 平板裝置 (直式 Portrait - 寬度較窄) */
         @media (max-width: 1024px) and (orientation: portrait) {
             .about-section::before {
                 background-size: 150%; 
-                
-                /* 👇 修正：取消註解並設定為 center 65%，讓 Logo 往下移 👇 */
-                background-position: center 80%; 
+                background-position: center 65%; 
             }
         }
-      /* 2. 手機裝置 (螢幕寬度 768px 以下) */
+
         @media (max-width: 768px) {
             .about-section { 
                 margin: 20px; 
@@ -117,6 +133,18 @@
             .about-section::before {
                 background-size: 200%; 
                 background-position: 50% center; 
+            }
+
+            /* 手機版微調 LINE 按鈕大小與距離 */
+            .floating-line-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .floating-line-btn svg {
+                width: 30px;
+                height: 30px;
             }
         }
     </style>
@@ -159,7 +187,7 @@
         </div>
     </section>
 
-    <!-- 側邊導覽列 (已設定連結) -->
+    <!-- 側邊導覽列 -->
     <nav class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()">&times;</div>
         <ul>
