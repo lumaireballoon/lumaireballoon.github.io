@@ -54,59 +54,55 @@
             box-sizing: border-box;
         }
 
-        /* 這裡設定 LOGO 作為半透明背景 (浮水印效果) */
+       /* =========================================
+           關於我們：預設背景 LOGO (針對電腦大螢幕)
+           ========================================= */
         .about-section::before {
             content: "";
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%;  /* 將寬度拉到最滿 */
-            height: 100%; /* 將高度拉到最滿 */
-            background-image: url(公司金標Logo.svg); /* 這是你設定的 LOGO 檔名 */
-            background-size: 200%; /* 將圖片強制放大至超過原本區塊，達到滿版效果 (若覺得太大可改回 100% 或 cover) */
+            width: 100%;  
+            height: 100%; 
+            background-image: url(公司金標Logo.svg); 
+            
+            /* 電腦版區塊較寬，百分比不用太大即可填滿視覺 */
+            background-size: 90%; 
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center center;
             opacity: 0.15; 
             z-index: 0;
             pointer-events: none;
         }
 
-        .about-content {
-            position: relative;
-            z-index: 1; /* 確保文字在 LOGO 上方 */
-            color: #5c4d42;
-            line-height: 2;
-            font-size: 16px;
-            letter-spacing: 1px;
-        }
+        /* =========================================
+           響應式設定：不同裝置的微調
+           ========================================= */
         
-        .about-content h2 {
-            text-align: center;
-            color: #8c7361;
-            letter-spacing: 3px;
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-size: 24px;
+        /* 1. 平板裝置 (螢幕寬度 1024px 以下) */
+        @media (max-width: 1024px) {
+            .about-section::before {
+                background-size: 120%; /* 平板畫面變窄，稍微調大百分比 */
+            }
         }
 
-        .about-content p {
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-
-        .highlight-text {
-            color: #8c7361;
-            font-weight: bold;
-        }
-
-        /* 右下角懸浮 LINE 按鈕 */
-        .floating-line-btn {position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
-        .floating-line-btn:hover {transform: scale(1.1); }
-        
+        /* 2. 手機裝置 (螢幕寬度 768px 以下) */
         @media (max-width: 768px) {
-            .about-section { margin: 20px; padding: 30px 20px; }
-            .about-content { font-size: 15px; }
+            .about-section { 
+                margin: 20px; 
+                padding: 30px 20px; 
+            }
+            .about-content { 
+                font-size: 15px; 
+            }
+            
+            .about-section::before {
+                /* 手機版面非常窄長，需要較大的百分比才能讓 LOGO 看起來夠大 */
+                background-size: 200%; 
+                /* 如果手機版 LOGO 覺得太高或太低，可以調整這裡的 center，例如改成 center 30% */
+                background-position: center center; 
+            }
         }
     </style>
 </head>
