@@ -87,7 +87,7 @@
             }
         }
 
-       /* 2. 手機裝置 (螢幕寬度 768px 以下) */
+      /* 2. 手機裝置 (螢幕寬度 768px 以下) */
         @media (max-width: 768px) {
             .about-section { 
                 margin: 20px; 
@@ -102,12 +102,12 @@
                 background-size: 200%; 
                 
                 /* 👇 關鍵：修改這裡！ 👇 */
-                /* 讓圖片水平向右移動：改成一個百分比，越接近 100% 越靠右 */
-                background-position: 80% center; 
+                /* 為了讓圖片在視覺上往右移，我們將數值調高 */
+                /* 請嘗試 95%，或是直接設為 100% 讓圖片最右側對齊容器最右側 */
+                background-position: 95% center; 
                 
                 /* 備註：
-                   If `80% center` (水平靠右 80%，垂直置中)
-                   如果想讓它稍微偏上，可以改為 `80% 30%` (水平靠右 80%，垂直距離頂部 30%)
+                   如果使用 `background-position: right 20px center;` 可以更精確地讓圖片距離右側 20px
                 */
             }
         }
