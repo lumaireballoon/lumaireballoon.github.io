@@ -76,17 +76,28 @@
             pointer-events: none;
         }
 
-        /* =========================================
+      /* =========================================
            響應式設定：不同裝置的微調
            ========================================= */
         
-        /* 1. 平板裝置 (螢幕寬度 1024px 以下) */
-        @media (max-width: 1024px) {
+        /* 1-A. 平板裝置 (橫式 Landscape - 寬度較寬) */
+        @media (max-width: 1024px) and (orientation: landscape) {
             .about-section::before {
-                background-size: 250%; /* 平板畫面變窄，稍微調大百分比 */
+                /* 這裡填入你覺得橫式「完美」的尺寸，例如 90% 或 100% */
+                background-size: 100%; 
             }
         }
 
+        /* 1-B. 平板裝置 (直式 Portrait - 寬度較窄) */
+        @media (max-width: 1024px) and (orientation: portrait) {
+            .about-section::before {
+                /* 直式畫面較窄長，這裡可以把百分比調大（例如 150%）來達到平衡 */
+                background-size: 150%; 
+                
+                /* 如果直式也會像手機一樣太靠左或靠右，也可以在這裡獨立設定位置 */
+                /* background-position: 40% center; */ 
+            }
+        }
       /* 2. 手機裝置 (螢幕寬度 768px 以下) */
         @media (max-width: 768px) {
             .about-section { 
