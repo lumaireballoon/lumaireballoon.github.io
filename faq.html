@@ -42,7 +42,7 @@
         .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
 
         /* =========================================
-           FAQ 獨立封面欄位樣式 (仿照參考圖片)
+           FAQ 獨立封面欄位樣式
            ========================================= */
         .faq-banner {
             position: relative;
@@ -68,7 +68,7 @@
             background-size: cover; 
             background-position: center center; 
             background-repeat: no-repeat;
-            opacity: 0.5; /* 半透明效果 */
+            opacity: 0.5; 
             z-index: 1; 
         }
 
@@ -137,10 +137,44 @@
             text-align: left;
         }
 
+        /* ===================================================
+           【LumaireBalloon 網頁設計專用】五畫面響應式萬用模板
+           =================================================== */
+
+        /* 1-A. 平板裝置：橫式 (Landscape) */
+        @media (max-width: 1180px) and (orientation: landscape) {
+            .faq-banner { height: 40vh; min-height: 220px; }
+        }
+
+        /* 1-B. 平板裝置：直式 (Portrait) */
+        @media (max-width: 1024px) and (orientation: portrait) {
+            .faq-banner { height: 30vh; min-height: 200px; }
+        }
+
+        /* 2-A. 手機裝置：一般直式 (Portrait) */
         @media (max-width: 768px) {
             .info-container { grid-template-columns: 1fr; gap: 30px; }
             .faq-banner { height: 25vh; min-height: 180px; }
             .faq-banner h2 { font-size: 28px; }
+        }
+
+        /* 2-B. 手機裝置：橫式 (Landscape) */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .faq-banner { height: 50vh; min-height: 160px; }
+        }
+
+        /* 3. 專門針對電腦大螢幕放大圖片範圍與視覺呈現 */
+        @media (min-width: 1025px) {
+            .faq-banner {
+                height: 48vh; /* 讓電腦螢幕下的圖片區塊高度變大、更有大氣感 */
+                min-height: 380px;
+            }
+            .faq-banner::before {
+                background-position: center 40%; /* 微調電腦版的圖片上下位置 */
+            }
+            .faq-banner h2 {
+                font-size: 44px; /* 電腦版標題稍微放大更有份量 */
+            }
         }
     </style>
 </head>
@@ -157,7 +191,7 @@
         </div>
     </header>
 
-    <!-- 新增的 FAQ 封面欄位 (帶背景圖與文字) -->
+    <!-- FAQ 封面欄位 (已針對電腦大螢幕放大範圍) -->
     <div class="faq-banner">
         <h2>FAQ</h2>
     </div>
