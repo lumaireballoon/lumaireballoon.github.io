@@ -40,73 +40,47 @@
         .overlay.active {display: block; }
         .title-area h1 {margin: 0; font-size: 24px; color: #8c7361; font-weight: normal; }
         .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
-
-        /* =========================================
-           關於我們：大 Logo 獨立封面欄位
-           ========================================= */
-        .about-banner {
-            position: relative;
-            width: 100%;
-            height: 35vh;
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-            margin: 20px 0;
-            background-color: #f2efe9;
-        }
-
-        .about-banner::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('公司背景Logo.jpg'); 
-            background-size: cover; 
-            background-position: center center; 
-            background-repeat: no-repeat;
-            opacity: 0.4; 
-            z-index: 1; 
-        }
-
-        /* 讓金標 Logo 完整呈現並置中疊加在封面 */
-        .about-banner-logo {
-            position: relative;
-            z-index: 2;
-            width: 320px;
-            max-width: 80%;
-            height: auto;
-            filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.3));
-        }
         
-        /* =========================================
-           關於我們：無白框一整頁流暢內文區塊
-           ========================================= */
-        .about-content-section {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 0 25px;
+        /* 關於我們專屬樣式 */
+        .about-section {
+            max-width: 800px; 
+            margin: 40px auto 80px auto; 
+            padding: 40px 30px; 
+            position: relative; 
+            background-color: transparent; /* 去除原本的白色底框 */
+            overflow: hidden;
             box-sizing: border-box;
         }
 
-        .about-content-section h2 {
+        .about-content {
+            position: relative; /* 確保文字在浮水印上方 */
+            z-index: 1;
+        }
+
+        .about-content h2 {
             text-align: center;
-            color: #5c4d42; 
-            letter-spacing: 2px;
+            color: #8c7361; 
+            letter-spacing: 3px;
             margin-top: 0;
             margin-bottom: 30px;
             font-size: 24px;
         }
 
-        .about-content-section p {
-            color: #735d4d;
-            font-size: 15px;
-            line-height: 2;
-            margin: 16px 0;
+        .about-section::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;  
+            height: 100%; 
+            background-image: url(公司金標Logo.svg); 
+            background-size: 90%; 
+            background-repeat: no-repeat;
+            background-position: center center;
+            opacity: 0.15; 
+            z-index: 0;
+            pointer-events: none;
         }
 
         /* 懸浮 LINE 按鈕專屬樣式 */
@@ -167,22 +141,35 @@
         }
 
         /* =========================================
-           響應式設定：五畫面萬用模板微調
+           響應式設定：不同裝置的微調
            ========================================= */
-        @media (max-width: 1180px) and (orientation: landscape) {
-            .about-banner { height: 40vh; min-height: 220px; }
+        
+        @media (max-width: 1024px) and (orientation: landscape) {
+            .about-section::before {
+                background-size: 100%; 
+            }
         }
 
         @media (max-width: 1024px) and (orientation: portrait) {
-            .about-banner { height: 30vh; min-height: 200px; }
+            .about-section::before {
+                background-size: 150%; 
+                background-position: center 65%; 
+            }
         }
 
         @media (max-width: 768px) {
-            .about-banner { height: 25vh; min-height: 180px; }
-            .about-banner-logo { width: 240px; }
-            .about-content-section { margin: 30px auto; padding: 0 20px; }
-            .about-content-section h2 { font-size: 20px; }
-            .about-content-section p { font-size: 14px; }
+            .about-section { 
+                margin: 20px; 
+                padding: 30px 20px; 
+            }
+            .about-content { 
+                font-size: 15px; 
+            }
+            
+            .about-section::before {
+                background-size: 200%; 
+                background-position: 50% center; 
+            }
 
             .floating-line-btn {
                 width: 50px;
@@ -197,24 +184,6 @@
 
             /* 手機版資訊欄改為單欄 */
             .info-container { grid-template-columns: 1fr; gap: 30px; }
-        }
-
-        @media (max-width: 768px) and (orientation: landscape) {
-            .about-banner { height: 50vh; min-height: 160px; }
-        }
-
-        /* 電腦大螢幕放大視覺效果 */
-        @media (min-width: 1025px) {
-            .about-banner {
-                height: 48vh; 
-                min-height: 380px;
-            }
-            .about-banner::before {
-                background-position: center 40%; 
-            }
-            .about-banner-logo {
-                width: 400px;
-            }
         }
     </style>
 </head>
@@ -231,34 +200,30 @@
         </div>
     </header>
 
-    <!-- 關於我們：大 Logo 獨立封面欄位 -->
-    <div class="about-banner">
-        <img src="公司金標Logo.svg" alt="公司金標 Logo" class="about-banner-logo">
-    </div>
+    <!-- 關於我們內容區塊 -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>深耕十年的蛻變：從恐懼到熱愛，用氣球點亮夢想</h2>
+            <p>歡迎來到 <span class="highlight-text">LumaireBalloon 嶼光製氣</span>！</p>
 
-    <!-- 關於我們內容區塊 (無白框一整頁流暢排版) -->
-    <main class="about-content-section">
-        <h2>深耕十年的蛻變：從恐懼到熱愛，用氣球點亮夢想</h2>
-        
-        <p>歡迎來到 LumaireBalloon 嶼光製氣！</p>
+            <p>故事的起點，要追溯到十年前。當時的創辦人，其實是一個連聽到氣球爆破聲都會感到緊張、甚至對氣球有些許恐懼的人。</p>
 
-        <p>故事的起點，要追溯到十年前。當時的創辦人，其實是一個連聽到氣球爆破聲都會感到緊張、甚至對氣球有些許恐懼的人。</p>
+            <br>然而，一次偶然的契機，開啟了與氣球的深度對話。當跨越了心中的芥蒂，親手將原本恐懼的氣球雕塑成，帶給人們笑容與驚喜的藝術品時，那份「將想像實體化」的魔力，讓當初的恐懼徹底轉化為無比的熱愛。</br>
+            
+            <p>剛開始的那幾年，是一段艱辛的築夢過程。從一隻簡單的造型氣球、一束充滿溫度的手折花束，到一個人扛著充氣設備穿梭於各個場地佈置，每一個案件，都是對手藝與細節最專注的堅持。</p>
 
-        <p>然而，一次偶然的契機，開啟了與氣球的深度對話。當跨越了心中的芥蒂，親手將原本恐懼的氣球雕塑成，帶給人們笑容與驚喜的藝術品時，那份「將想像實體化」的魔力，讓當初的恐懼徹底轉化為無比的熱愛。</p>
-        
-        <p>剛開始的那幾年，是一段艱辛的築夢過程。從一隻簡單的造型氣球、一束充滿溫度的手折花束，到一個人扛著充氣設備穿梭於各個場地佈置，每一個案件，都是對手藝與細節最專注的堅持。</p>
+            <br>對氣球藝術與品質的極致追求，凝聚了無數客戶的信任。看到作品落成那一刻您眼中的驚喜與光芒，正是嶼光最珍視且無可取代的成就。</br>
 
-        <p>對氣球藝術與品質的極致追求，凝聚了無數客戶的信任。看到作品落成那一刻您眼中的驚喜與光芒，正是嶼光最珍視且無可取代的成就。</p>
+            <p>經過十年的歲月沉澱，我們從個人工作室，正式擴大成立為品牌公司——「嶼光製氣 Lumaire Balloon」。</p>
 
-        <p>經過十年的歲月沉澱，我們從個人工作室，正式擴大成立為品牌公司——「嶼光製氣 Lumaire Balloon」。</p>
+            <br>十年的時間，氣球從一份個人的克服與熱愛，凝聚成我們的品牌志業。未來，嶼光將繼續攜手與您，點亮每一個值得紀念的歡樂瞬間。</br>
 
-        <p>十年的時間，氣球從一份個人的克服與熱愛，凝聚成我們的品牌志業。未來，嶼光將繼續攜手與您，點亮每一個值得紀念的歡樂瞬間。</p>
-
-        <p style="text-align: center; margin-top: 45px; font-weight: bold; color: #8c7361; line-height: 2.2;">
-            「嶼心造夢，光映美好。」<br>
-            嶼光製氣，期待能用我們 10 年的專業與熱情，為您的每個重要日子，點亮不凡的驚喜！
-        </p>
-    </main>
+            <p style="text-align: center; margin-top: 35px; font-weight: bold; color: #8c7361;">
+                「嶼心造夢，光映美好。」<br><br>
+                嶼光製氣，期待能用我們 10 年的專業與熱情，為您的每個重要日子，點亮不凡的驚喜！
+            </p>
+        </div>
+    </section>
 
     <!-- 側邊導覽列 -->
     <nav class="sidebar" id="sidebar">
