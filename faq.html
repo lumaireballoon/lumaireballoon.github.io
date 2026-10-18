@@ -84,46 +84,39 @@
         }
 
         /* =========================================
-           FAQ 內容區塊樣式
+           FAQ 內容區塊樣式 (無底色一整頁流暢風格)
            ========================================= */
         .faq-content-section {
             max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 50px auto;
+            padding: 0 25px;
             box-sizing: border-box;
         }
-        .faq-card {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 25px 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(140, 115, 97, 0.08);
-            border: 1px solid #f2efe9;
+        .faq-block {
+            margin-bottom: 40px;
         }
-        .faq-card h3 {
+        .faq-block h3 {
             color: #5c4d42;
             font-size: 20px;
             margin-top: 0;
             margin-bottom: 15px;
-            letter-spacing: 1px;
-            border-bottom: 2px solid #f2efe9;
-            padding-bottom: 10px;
+            letter-spacing: 2px;
         }
-        .faq-card p {
+        .faq-block p {
             color: #735d4d;
             font-size: 15px;
-            line-height: 1.8;
+            line-height: 2;
             margin: 8px 0;
         }
-        .faq-card ol {
+        .faq-block ol {
             color: #735d4d;
             font-size: 15px;
-            line-height: 1.8;
+            line-height: 2;
             margin: 8px 0;
             padding-left: 20px;
         }
-        .faq-card li {
-            margin-bottom: 10px;
+        .faq-block li {
+            margin-bottom: 12px;
         }
 
         /* 懸浮 LINE 按鈕 */
@@ -199,8 +192,7 @@
             .info-container { grid-template-columns: 1fr; gap: 30px; }
             .faq-banner { height: 25vh; min-height: 180px; }
             .faq-banner h2 { font-size: 28px; }
-            .faq-content-section { margin: 20px auto; padding: 0 15px; }
-            .faq-card { padding: 20px; }
+            .faq-content-section { margin: 30px auto; padding: 0 20px; }
         }
 
         /* 2-B. 手機裝置：橫式 (Landscape) */
@@ -241,28 +233,28 @@
         <h2>FAQ</h2>
     </div>
 
-    <!-- FAQ 內容新增區塊 -->
+    <!-- FAQ 內容區塊 (無底色一整頁流暢排版) -->
     <main class="faq-content-section">
-        <div class="faq-card">
-            <h3>乳膠氣球</h3>
+        <div class="faq-block">
+            <h3>[乳膠氣球]</h3>
             <p>我們採用100%環保乳膠氣球</p>
         </div>
 
-        <div class="faq-card">
-            <h3>氦氣</h3>
+        <div class="faq-block">
+            <h3>[氦氣]</h3>
             <p>創辦人本身是化工出生對於氣體再熟悉不過</p>
         </div>
 
-        <div class="faq-card">
-            <h3>注意事項</h3>
+        <div class="faq-block">
+            <h3>[注意事項]</h3>
             <ol>
                 <li>一般空飄乳膠氣球飄浮時效為6-8小時，為了保持乳膠球漂浮的完美狀態，必須在活動開始前2小時才能製作空飄乳膠氣球，故無法前一天到場佈置或到店取貨。</li>
                 <li>所有商品內容皆為客製化訂單，請至少提前一天前預約，預約下訂後請先『完成付款』，確認款項入帳後訂單即成立。</li>
             </ol>
         </div>
 
-        <div class="faq-card">
-            <h3>付款方式</h3>
+        <div class="faq-block">
+            <h3>[付款方式]</h3>
             <p>目前僅現金、網路銀行、LinePay。</p>
         </div>
     </main>
