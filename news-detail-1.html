@@ -42,9 +42,9 @@
         .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
 
         /* =========================================
-           文章封面欄位樣式 (沿用原 FAQ 橫幅樣式)
+           封面欄位樣式
            ========================================= */
-        .article-banner {
+        .faq-banner {
             position: relative;
             width: 100%;
             height: 35vh;
@@ -57,7 +57,7 @@
             margin: 20px 0;
         }
 
-        .article-banner::before {
+        .faq-banner::before {
             content: "";
             position: absolute;
             top: 0;
@@ -72,7 +72,7 @@
             z-index: 1; 
         }
 
-        .article-banner h2 {
+        .faq-banner h2 {
             position: relative;
             z-index: 2;
             color: #8c7361;
@@ -84,77 +84,47 @@
         }
 
         /* =========================================
-           內文區塊樣式
+           內容區塊樣式
            ========================================= */
-        .article-content-section {
+        .faq-content-section {
             max-width: 800px;
             margin: 50px auto;
             padding: 0 25px;
             box-sizing: border-box;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(140, 115, 97, 0.08);
-            padding: 40px;
         }
-        
-        .article-date {
-            font-size: 14px;
-            color: #a88b74;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+        .faq-block {
+            margin-bottom: 40px;
         }
-        
-        .article-title {
+        .faq-block h3 {
             color: #5c4d42;
-            font-size: 26px;
+            font-size: 24px;
             margin-top: 0;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e6dfd5;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dcd4c7;
             letter-spacing: 2px;
-            line-height: 1.4;
         }
-
-        .article-body p {
+        .faq-block p {
             color: #735d4d;
             font-size: 16px;
             line-height: 2;
             margin: 15px 0;
         }
         
-        .article-body strong {
-            color: #5c4d42;
-        }
-
-        .article-body ol, .article-body ul {
-            color: #735d4d;
-            font-size: 16px;
-            line-height: 2;
-            margin: 15px 0;
-            padding-left: 25px;
-        }
-
-        .article-body li {
-            margin-bottom: 12px;
-        }
-
-        .back-to-list {
+        .back-btn {
             display: inline-block;
-            margin-top: 40px;
-            padding: 12px 25px;
+            margin-top: 30px;
+            padding: 10px 24px;
             background-color: #8c7361;
             color: #ffffff;
             text-decoration: none;
-            border-radius: 30px;
+            border-radius: 6px;
             font-size: 15px;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s;
         }
-
-        .back-to-list:hover {
+        .back-btn:hover {
             background-color: #5c4d42;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(92, 77, 66, 0.3);
         }
 
         /* 懸浮 LINE 按鈕 */
@@ -211,27 +181,20 @@
             text-align: left;
         }
 
-        /* 響應式設計 */
-        @media (max-width: 1180px) and (orientation: landscape) {
-            .article-banner { height: 40vh; min-height: 220px; }
-        }
-        @media (max-width: 1024px) and (orientation: portrait) {
-            .article-banner { height: 30vh; min-height: 200px; }
-        }
+        /* 響應式設定 */
+        @media (max-width: 1180px) and (orientation: landscape) { .faq-banner { height: 40vh; min-height: 220px; } }
+        @media (max-width: 1024px) and (orientation: portrait) { .faq-banner { height: 30vh; min-height: 200px; } }
         @media (max-width: 768px) {
             .info-container { grid-template-columns: 1fr; gap: 30px; }
-            .article-banner { height: 25vh; min-height: 180px; }
-            .article-banner h2 { font-size: 28px; }
-            .article-content-section { margin: 30px 20px; padding: 25px 20px; }
-            .article-title { font-size: 22px; }
+            .faq-banner { height: 25vh; min-height: 180px; }
+            .faq-banner h2 { font-size: 28px; }
+            .faq-content-section { margin: 30px auto; padding: 0 20px; }
         }
-        @media (max-width: 768px) and (orientation: landscape) {
-            .article-banner { height: 50vh; min-height: 160px; }
-        }
+        @media (max-width: 768px) and (orientation: landscape) { .faq-banner { height: 50vh; min-height: 160px; } }
         @media (min-width: 1025px) {
-            .article-banner { height: 48vh; min-height: 380px; }
-            .article-banner::before { background-position: center 40%; }
-            .article-banner h2 { font-size: 44px; }
+            .faq-banner { height: 48vh; min-height: 380px; }
+            .faq-banner::before { background-position: center 40%; }
+            .faq-banner h2 { font-size: 44px; }
         }
     </style>
 </head>
@@ -248,35 +211,20 @@
         </div>
     </header>
 
-    <!-- 公告封面欄位 -->
-    <div class="article-banner">
+    <!-- 封面欄位 -->
+    <div class="faq-banner">
         <h2>最新消息</h2>
     </div>
 
-    <!-- 文章詳細內容區塊 -->
-    <main class="article-content-section">
-        <div class="article-date">發布日期：2026.06.10</div>
-        <h3 class="article-title">【公告】✨工作室全新官網正式上線！✨</h3>
-        
-        <div class="article-body">
-            <p>親愛的顧客您好：</p>
-            <p>嶼光製氣全新官方網站已正式啟用！未來所有的氣球佈置作品、最新活動公告與相關預約須知，都將會在此同步更新。希望能透過更清晰的版面，讓大家快速找到需要的專屬佈置方案。</p>
+    <!-- 內文區塊 -->
+    <main class="faq-content-section">
+        <div class="faq-block">
+            <h3>【公告】工作室全新官網正式上線！</h3>
+            <p>嶼光製氣全新官方網站已正式啟用！</p>
+            <p>未來所有的氣球佈置作品、最新活動公告與相關預約須知，都將會在此同步更新。希望能透過更清晰的版面，讓大家快速找到需要的專屬佈置方案。</p>
             
-            <p><strong>📌 營業時間與預約須知</strong></p>
-            <p>為提供每位顧客更完善的服務品質與專屬諮詢體驗，本工作室目前<strong>全面採預約制</strong>，恕不開放現場自由參觀。</p>
-            <p>無論您是需要客製化氣球花束、派對泡泡球，或是大型活動/開幕拱門的會場佈置，都歡迎透過官方 Line 與小編聯繫：</p>
-            
-            <ol>
-                <li>線上客服為 24 小時開放留言，我們將於營業時間內依序回覆，為您提供專業建議與報價。</li>
-                <li>預約取貨專屬時段為早上 9:00 ~ 11:00，因手工製作較耗時，請盡早確認您的佈置檔期。</li>
-            </ol>
-
-            <p>感謝大家一直以來的支持與喜愛，期待能在未來的日子裡，繼續為您的每個重要時刻「製氣」！</p>
-        </div>
-
-        <!-- 返回上一頁的按鈕 -->
-        <div style="text-align: center;">
-            <a href="news.html" class="back-to-list">← 返回最新消息列表</a>
+            <!-- 返回上一頁按鈕 -->
+            <a href="news.html" class="back-btn">回上一頁</a>
         </div>
     </main>
 
