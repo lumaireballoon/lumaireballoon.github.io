@@ -84,7 +84,7 @@
         }
 
         /* =========================================
-           最新消息內容區塊樣式 (無底色一整頁流暢風格)
+           最新消息內容區塊樣式
            ========================================= */
         .news-content-section {
             max-width: 800px;
@@ -118,6 +118,59 @@
             font-size: 15px;
             line-height: 2;
             margin: 8px 0;
+        }
+
+        /* 置頂樣式 (專屬標籤與外框，方便識別) */
+        .news-block.pinned {
+            background-color: #f2efe9;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dcd4c7;
+            box-shadow: 0 4px 10px rgba(140, 115, 97, 0.1);
+        }
+        .pinned-tag {
+            display: inline-block;
+            background-color: #8c7361;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            letter-spacing: 1px;
+            vertical-align: middle;
+        }
+
+        /* 前端分頁按鈕樣式 */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 40px 0 20px 0;
+        }
+        .page-btn {
+            background-color: #f2efe9;
+            color: #5c4d42;
+            border: 1px solid #dcd4c7;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .page-btn:hover:not(:disabled) {
+            background-color: #8c7361;
+            color: #fff;
+            border-color: #8c7361;
+        }
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .page-info {
+            font-size: 14px;
+            color: #735d4d;
+            letter-spacing: 1px;
         }
 
         /* 頁面內的 LINE 諮詢按鈕 */
@@ -162,35 +215,11 @@
             text-align: left;
         }
 
-        /* ===================================================
-           【LumaireBalloon 網頁設計專用】五畫面響應式萬用模板
-           =================================================== */
-        @media (max-width: 1180px) and (orientation: landscape) {
-            .news-banner { height: 40vh; min-height: 220px; }
-        }
-        @media (max-width: 1024px) and (orientation: portrait) {
-            .news-banner { height: 30vh; min-height: 200px; }
-        }
         @media (max-width: 768px) {
             .info-container { grid-template-columns: 1fr; gap: 30px; }
             .news-banner { height: 25vh; min-height: 180px; }
             .news-banner h2 { font-size: 28px; }
             .news-content-section { margin: 30px auto; padding: 0 20px; }
-        }
-        @media (max-width: 768px) and (orientation: landscape) {
-            .news-banner { height: 50vh; min-height: 160px; }
-        }
-        @media (min-width: 1025px) {
-            .news-banner {
-                height: 48vh; 
-                min-height: 380px;
-            }
-            .news-banner::before {
-                background-position: center 40%; 
-            }
-            .news-banner h2 {
-                font-size: 44px; 
-            }
         }
     </style>
 </head>
@@ -212,8 +241,16 @@
         <h2>最新消息</h2>
     </div>
 
-    <!-- 最新消息 內容區塊 -->
-    <main class="news-content-section">
+    <!-- 最新消息 內容區塊 (由下方 JavaScript 自動控制每頁顯示 5 則) -->
+    <main class="news-content-section" id="newsContainer">
+        
+        <!-- 【置頂公告範例】：若要置頂，請在 class 加上 pinned，並在標題旁加上 <span class="pinned-tag">置頂</span> -->
+        <div class="news-block pinned">
+            <div class="news-date">2026.06.10</div>
+            <h3>【熱門活動】夏日限定氣球派對優惠方案開跑！<span class="pinned-tag">置頂</span></h3>
+            <p>炎炎夏日派對首選！即日起至八月底前預約客製化派對背板與氣球佈置，即享專屬 9 折優惠。名額有限，歡迎透過官方 Line 搶先卡位預約檔期！</p>
+        </div>
+
         <div class="news-block">
             <div class="news-date">2026.06.01</div>
             <h3>工作室全新官網正式上線！</h3>
@@ -232,6 +269,29 @@
             <p>感謝各大企業、學校及里民活動的熱烈支持！近期假日佈置檔期較滿，若有開幕拱門、活動球牆或派對佈置需求的客戶，建議提早 1 至 2 週與小編聯繫洽談細節。</p>
         </div>
 
+        <div class="news-block">
+            <div class="news-date">2026.03.10</div>
+            <h3>春季校園活動氣球佈置成果分享</h3>
+            <p>很榮幸參與本季多所學校的畢業季與社團成果發表會佈置，運用柔和的莫蘭迪色系與環保乳膠氣球，打造出兼具質感與歡樂氛圍的拍照打卡牆！</p>
+        </div>
+
+        <div class="news-block">
+            <div class="news-date">2026.02.14</div>
+            <h3>情人節限定愛心空飄氣球預告</h3>
+            <p>浪漫情人節即將到來，工作室推出限定愛心空飄氣球禮盒組，數量有限，歡迎提前預訂給另一半一個大大的驚喜。</p>
+        </div>
+
+    </main>
+
+    <!-- 前端分頁按鈕區塊 -->
+    <div class="pagination-container" id="paginationControls">
+        <button class="page-btn" id="prevBtn" onclick="changePage(-1)">上一頁</button>
+        <span class="page-info" id="pageInfo">第 1 頁 / 共 1 頁</span>
+        <button class="page-btn" id="nextBtn" onclick="changePage(1)">下一頁</button>
+    </div>
+
+    <!-- 底部 Line 按鈕與資訊欄 -->
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 25px;">
         <div class="line-btn-container">
             <a href="https://lin.ee/709rU13" class="line-btn" target="_blank"> 
                 <svg viewBox="0 0 24 24" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
@@ -241,7 +301,7 @@
                 Line 快速諮詢 
             </a>
         </div>
-    </main>
+    </div>
 
     <!-- 側邊導覽列 -->
     <nav class="sidebar" id="sidebar">
@@ -291,6 +351,45 @@
             dropdownBtn.classList.toggle('active');
             dropdownContainer.classList.toggle('active');
         }
+
+        /* =========================================
+           前端自動分頁邏輯 (每頁 5 則)
+           ========================================= */
+        const itemsPerPage = 5;
+        let currentPage = 1;
+        const newsBlocks = document.querySelectorAll('.news-block');
+        const totalPages = Math.ceil(newsBlocks.length / itemsPerPage) || 1;
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+
+            newsBlocks.forEach((block, index) => {
+                if (index >= start && index < end) {
+                    block.style.display = 'block';
+                } else {
+                    block.style.display = 'none';
+                }
+            });
+
+            document.getElementById('pageInfo').innerText = `第 ${currentPage} 頁 / 共 ${totalPages} 頁`;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+            
+            // 換頁後自動滾動回最新消息區塊頂端，提升瀏覽體驗
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        function changePage(direction) {
+            let newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                showPage(newPage);
+            }
+        }
+
+        // 初始化執行
+        showPage(1);
     </script>
 
     <!-- 底部資訊欄區塊 -->
