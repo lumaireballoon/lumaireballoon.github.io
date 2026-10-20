@@ -1,1 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【公告】工作室全新官網正式上線！ | LumaireBalloon 嶼光製氣</title>
+    <style>
+        body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
+        .header-container {position: relative; background-color: #f2efe9; padding: 20px; text-align: center; }
+        .hamburger-menu {
+            position: fixed; 
+            top: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            cursor: pointer;
+            z-index: 9999; 
+        }
+        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; 
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5); 
+            transition: all 0.3s ease;
+        }
+        .sidebar {position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #faf7f2; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); transition: left 0.3s ease; z-index: 1001; padding-top: 60px; overflow-y: auto; }
+        .sidebar.active {left: 0; }
+        .close-btn {position: absolute; top: 15px; right: 20px; font-size: 28px; color: #8c7361; cursor: pointer; }
+        .sidebar ul {list-style: none; padding: 0; margin: 0; }
+        .sidebar ul li {border-bottom: 1px solid rgba(140, 115, 97, 0.1); }
+        .sidebar ul li a, .sidebar .dropdown-btn {text-decoration: none; color: #5c4d42; font-size: 16px; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; width: 100%; box-sizing: border-box; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; transition: color 0.2s, background-color 0.2s; }
+        .sidebar ul li a:hover, .sidebar .dropdown-btn:hover {color: #a88b74; background-color: rgba(140, 115, 97, 0.05); }
+        .dropdown-container {display: none; background-color: rgba(140, 115, 97, 0.04); padding-left: 15px; }
+        .dropdown-container.active {display: block; }
+        .dropdown-container li {border-bottom: none; }
+        .dropdown-container a {font-size: 14px; padding: 12px 25px; color: #735d4d; }
+        .arrow {transition: transform 0.3s ease; font-size: 12px; }
+        .dropdown-btn.active .arrow {transform: rotate(180deg); }
+        .overlay {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 999; }
+        .overlay.active {display: block; }
+        .title-area h1 {margin: 0; font-size: 24px; color: #8c7361; font-weight: normal; }
+        .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
 
+        /* =========================================
+           文章封面欄位樣式 (沿用原 FAQ 橫幅樣式)
+           ========================================= */
+        .article-banner {
+            position: relative;
+            width: 100%;
+            height: 35vh;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .article-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('公司背景Logo.jpg'); 
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat;
+            opacity: 0.5; 
+            z-index: 1; 
+        }
+
+        .article-banner h2 {
+            position: relative;
+            z-index: 2;
+            color: #8c7361;
+            font-size: 36px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        /* =========================================
+           內文區塊樣式
+           ========================================= */
+        .article-content-section {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 25px;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(140, 115, 97, 0.08);
+            padding: 40px;
+        }
+        
+        .article-date {
+            font-size: 14px;
+            color: #a88b74;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .article-title {
+            color: #5c4d42;
+            font-size: 26px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e6dfd5;
+            letter-spacing: 2px;
+            line-height: 1.4;
+        }
+
+        .article-body p {
+            color: #735d4d;
+            font-size: 16px;
+            line-height: 2;
+            margin: 15px 0;
+        }
+        
+        .article-body strong {
+            color: #5c4d42;
+        }
+
+        .article-body ol, .article-body ul {
+            color: #735d4d;
+            font-size: 16px;
+            line-height: 2;
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .article-body li {
+            margin-bottom: 12px;
+        }
+
+        .back-to-list {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 25px;
+            background-color: #8c7361;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-list:hover {
+            background-color: #5c4d42;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(92, 77, 66, 0.3);
+        }
+
+        /* 懸浮 LINE 按鈕 */
+        .floating-line-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #06C755;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 9998;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .floating-line-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        /* 底部資訊欄樣式 */
+        .info-footer {
+            background-color: #f2efe9;
+            color: #5c4d42;
+            padding: 50px 20px;
+            margin-top: 60px;
+            border-top: 1px solid #e6dfd5;
+        }
+        .info-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        .info-column h3 {
+            text-align: center;
+            color: #5c4d42;
+            font-size: 20px;
+            letter-spacing: 2px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcd4c7;
+        }
+        .info-column p {
+            font-size: 15px;
+            color: #735d4d;
+            line-height: 2;
+            margin: 8px 0;
+            text-align: left;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 1180px) and (orientation: landscape) {
+            .article-banner { height: 40vh; min-height: 220px; }
+        }
+        @media (max-width: 1024px) and (orientation: portrait) {
+            .article-banner { height: 30vh; min-height: 200px; }
+        }
+        @media (max-width: 768px) {
+            .info-container { grid-template-columns: 1fr; gap: 30px; }
+            .article-banner { height: 25vh; min-height: 180px; }
+            .article-banner h2 { font-size: 28px; }
+            .article-content-section { margin: 30px 20px; padding: 25px 20px; }
+            .article-title { font-size: 22px; }
+        }
+        @media (max-width: 768px) and (orientation: landscape) {
+            .article-banner { height: 50vh; min-height: 160px; }
+        }
+        @media (min-width: 1025px) {
+            .article-banner { height: 48vh; min-height: 380px; }
+            .article-banner::before { background-position: center 40%; }
+            .article-banner h2 { font-size: 44px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="title-area">
+            <h1>LumaireBalloon</h1>
+            <p>嶼光製氣</p>
+        </div>
+    </header>
+
+    <!-- 公告封面欄位 -->
+    <div class="article-banner">
+        <h2>最新消息</h2>
+    </div>
+
+    <!-- 文章詳細內容區塊 -->
+    <main class="article-content-section">
+        <div class="article-date">發布日期：2026.06.10</div>
+        <h3 class="article-title">【公告】✨工作室全新官網正式上線！✨</h3>
+        
+        <div class="article-body">
+            <p>親愛的顧客您好：</p>
+            <p>嶼光製氣全新官方網站已正式啟用！未來所有的氣球佈置作品、最新活動公告與相關預約須知，都將會在此同步更新。希望能透過更清晰的版面，讓大家快速找到需要的專屬佈置方案。</p>
+            
+            <p><strong>📌 營業時間與預約須知</strong></p>
+            <p>為提供每位顧客更完善的服務品質與專屬諮詢體驗，本工作室目前<strong>全面採預約制</strong>，恕不開放現場自由參觀。</p>
+            <p>無論您是需要客製化氣球花束、派對泡泡球，或是大型活動/開幕拱門的會場佈置，都歡迎透過官方 Line 與小編聯繫：</p>
+            
+            <ol>
+                <li>線上客服為 24 小時開放留言，我們將於營業時間內依序回覆，為您提供專業建議與報價。</li>
+                <li>預約取貨專屬時段為早上 9:00 ~ 11:00，因手工製作較耗時，請盡早確認您的佈置檔期。</li>
+            </ol>
+
+            <p>感謝大家一直以來的支持與喜愛，期待能在未來的日子裡，繼續為您的每個重要時刻「製氣」！</p>
+        </div>
+
+        <!-- 返回上一頁的按鈕 -->
+        <div style="text-align: center;">
+            <a href="news.html" class="back-to-list">← 返回最新消息列表</a>
+        </div>
+    </main>
+
+    <!-- 側邊導覽列 -->
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="news.html">最新消息</a></li>
+            <li>
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <span>商品列表</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <ul class="dropdown-container" id="productDropdown">
+                    <li><a href="arch.html">氣球柱、拱門、球牆</a></li>
+                    <li><a href="#">氣球花束</a></li>
+                    <li><a href="#">泡泡球</a></li>
+                    <li><a href="#">乳膠氣球</a></li>
+                    <li><a href="#">客製化佈置</a></li>
+                </ul>
+            </li>
+            <li><a href="faq.html">注意事項</a></li>
+            <li><a href="about.html">關於我們</a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- 右下角懸浮 LINE 按鈕 -->
+    <a href="https://lin.ee/709rU13" class="floating-line-btn" target="_blank" title="LINE 快速諮詢">
+        <svg viewBox="0 0 24 24" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff" d="M12 2C6.477 2 2 5.923 2 10.75c0 2.766 1.503 5.23 3.844 6.836-.14.523-.526 1.956-.604 2.257-.107.412.15.807.545.719.345-.077 2.146-.484 3.142-.716C10.22 20.15 11.085 20.25 12 20.25c5.523 0 10-3.923 10-8.75S17.523 2 12 2z"/>
+            <path fill="#06C755" d="M 5.5 9.2 v 4.2 h 2.6 v -0.9 h -1.7 v -3.3 z M 9.0 9.2 v 4.2 h 1.1 v -4.2 z M 11.0 9.2 v 4.2 h 1.1 v -2.2 l 1.6 2.2 h 1.1 v -4.2 h -1.1 v 2.2 l -1.6 -2.2 z M 16.0 9.2 v 4.2 h 2.6 v -0.9 h -1.5 v -0.6 h 1.3 v -0.9 h -1.3 v -0.8 h 1.5 v -1 z"/>
+        </svg>
+    </a>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleDropdown() {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContainer = document.getElementById('productDropdown');
+            dropdownBtn.classList.toggle('active');
+            dropdownContainer.classList.toggle('active');
+        }
+    </script>
+
+    <!-- 底部資訊欄區塊 -->
+    <footer class="info-footer">
+        <div class="info-container">
+            <div class="info-column">
+                <h3>嶼光製氣LumaireBalloon</h3>
+                <p>服務項目：氣球零售｜各式佈置｜學校活動｜公司合作｜里民活動</p>
+                <p>聯絡電話：0917-817-832</p>
+                <p>地址：新北市三重區長興街99號2樓</p>
+            </div>
+            <div class="info-column">
+                <h3>營業時間</h3>
+                <p>週一至週日 早上11:00 ~ 晚上11:00</p>
+                <p>早上9:00~11:00僅提供預約取貨</p>
+                <p>工作室採預約制(線上客服為24h)</p>
+                <p>為提供每位顧客更完善的服務與諮詢體驗，目前不開放自由參觀。歡迎先來電/加入官方Line與小編聯繫。</p>
+                <p>我們將依您的需求提供專業建議與報價。</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
