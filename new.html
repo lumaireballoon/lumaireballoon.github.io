@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新消息 | LumaireBalloon 嶼光製氣</title>
+    <style>
+        body {margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif; background-color: #faf7f2; }
+        .header-container {position: relative; background-color: #f2efe9; padding: 20px; text-align: center; }
+        .hamburger-menu {
+            position: fixed; 
+            top: 25px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            cursor: pointer;
+            z-index: 9999; 
+        }
+        .hamburger-menu .bar {height: 2px; width: 100%; background-color: #8c7361; border-radius: 2px; 
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5); 
+            transition: all 0.3s ease;
+        }
+        .sidebar {position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #faf7f2; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); transition: left 0.3s ease; z-index: 1001; padding-top: 60px; overflow-y: auto; }
+        .sidebar.active {left: 0; }
+        .close-btn {position: absolute; top: 15px; right: 20px; font-size: 28px; color: #8c7361; cursor: pointer; }
+        .sidebar ul {list-style: none; padding: 0; margin: 0; }
+        .sidebar ul li {border-bottom: 1px solid rgba(140, 115, 97, 0.1); }
+        .sidebar ul li a, .sidebar .dropdown-btn {text-decoration: none; color: #5c4d42; font-size: 16px; display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; width: 100%; box-sizing: border-box; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; transition: color 0.2s, background-color 0.2s; }
+        .sidebar ul li a:hover, .sidebar .dropdown-btn:hover {color: #a88b74; background-color: rgba(140, 115, 97, 0.05); }
+        .dropdown-container {display: none; background-color: rgba(140, 115, 97, 0.04); padding-left: 15px; }
+        .dropdown-container.active {display: block; }
+        .dropdown-container li {border-bottom: none; }
+        .dropdown-container a {font-size: 14px; padding: 12px 25px; color: #735d4d; }
+        .arrow {transition: transform 0.3s ease; font-size: 12px; }
+        .dropdown-btn.active .arrow {transform: rotate(180deg); }
+        .overlay {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 999; }
+        .overlay.active {display: block; }
+        .title-area h1 {margin: 0; font-size: 24px; color: #8c7361; font-weight: normal; }
+        .title-area p {margin: 5px 0 15px 0; font-size: 12px; color: #a88b74; letter-spacing: 2px; }
+
+        /* =========================================
+           最新消息獨立封面欄位樣式
+           ========================================= */
+        .news-banner {
+            position: relative;
+            width: 100%;
+            height: 35vh;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .news-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('公司背景Logo.jpg'); 
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat;
+            opacity: 0.5; 
+            z-index: 1; 
+        }
+
+        .news-banner h2 {
+            position: relative;
+            z-index: 2;
+            color: #8c7361; 
+            font-size: 36px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8); 
+            margin: 0;
+        }
+
+        /* =========================================
+           最新消息內容區塊樣式 (無底色一整頁流暢風格)
+           ========================================= */
+        .news-content-section {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+        .news-block {
+            margin-bottom: 45px;
+            border-bottom: 1px solid #e6dfd5;
+            padding-bottom: 30px;
+        }
+        .news-block:last-child {
+            border-bottom: none;
+        }
+        .news-date {
+            font-size: 13px;
+            color: #a88b74;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .news-block h3 {
+            color: #5c4d42;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        .news-block p {
+            color: #735d4d;
+            font-size: 15px;
+            line-height: 2;
+            margin: 8px 0;
+        }
+
+        /* 頁面內的 LINE 諮詢按鈕 */
+        .line-btn-container { text-align: center; margin-top: 40px; }
+        .line-btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; background-color: #06C755; color: white; text-decoration: none; font-size: 18px; font-weight: bold; padding: 14px 32px; border-radius: 30px; box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3); transition: all 0.2s ease; letter-spacing: 1px; }
+        .line-btn:hover { background-color: #05b34c; transform: translateY(-2px); box-shadow: 0 6px 14px rgba(6, 199, 85, 0.4); }
+
+        /* 右下角懸浮 LINE 按鈕 */
+        .floating-line-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #06C755; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.4); z-index: 9999; transition: transform 0.3s ease; text-decoration: none; }
+        .floating-line-btn:hover { transform: scale(1.1); }
+
+        /* 底部資訊欄樣式 */
+        .info-footer {
+            background-color: #f2efe9;
+            color: #5c4d42;
+            padding: 50px 20px;
+            margin-top: 60px;
+            border-top: 1px solid #e6dfd5;
+        }
+        .info-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        .info-column h3 {
+            text-align: center;
+            color: #5c4d42;
+            font-size: 20px;
+            letter-spacing: 2px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dcd4c7;
+        }
+        .info-column p {
+            font-size: 15px;
+            color: #735d4d;
+            line-height: 2;
+            margin: 8px 0;
+            text-align: left;
+        }
+
+        /* ===================================================
+           【LumaireBalloon 網頁設計專用】五畫面響應式萬用模板
+           =================================================== */
+        @media (max-width: 1180px) and (orientation: landscape) {
+            .news-banner { height: 40vh; min-height: 220px; }
+        }
+        @media (max-width: 1024px) and (orientation: portrait) {
+            .news-banner { height: 30vh; min-height: 200px; }
+        }
+        @media (max-width: 768px) {
+            .info-container { grid-template-columns: 1fr; gap: 30px; }
+            .news-banner { height: 25vh; min-height: 180px; }
+            .news-banner h2 { font-size: 28px; }
+            .news-content-section { margin: 30px auto; padding: 0 20px; }
+        }
+        @media (max-width: 768px) and (orientation: landscape) {
+            .news-banner { height: 50vh; min-height: 160px; }
+        }
+        @media (min-width: 1025px) {
+            .news-banner {
+                height: 48vh; 
+                min-height: 380px;
+            }
+            .news-banner::before {
+                background-position: center 40%; 
+            }
+            .news-banner h2 {
+                font-size: 44px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="title-area">
+            <h1>LumaireBalloon</h1>
+            <p>嶼光製氣</p>
+        </div>
+    </header>
+
+    <!-- 最新消息 封面欄位 -->
+    <div class="news-banner">
+        <h2>最新消息</h2>
+    </div>
+
+    <!-- 最新消息 內容區塊 -->
+    <main class="news-content-section">
+        <div class="news-block">
+            <div class="news-date">2026.06.01</div>
+            <h3>工作室全新官網正式上線！</h3>
+            <p>嶼光製氣全新官方網站與注意事項頁面正式啟用！未來所有氣球佈置作品、最新活動公告與預約須知都將在此同步更新，歡迎多加利用線上客服與官方 Line 洽詢專屬佈置方案。</p>
+        </div>
+
+        <div class="news-block">
+            <div class="news-date">2026.05.15</div>
+            <h3>客製化氣球花束與泡泡球預約開放中</h3>
+            <p>為提供每位顧客更精緻的節慶與送禮體驗，即日起開放各式客製化氣球花束與泡泡球預訂。因手工製作耗時，請至少提前一天完成預約與匯款，以便我們為您保留完美的製作檔期。</p>
+        </div>
+
+        <div class="news-block">
+            <div class="news-date">2026.04.01</div>
+            <h3>近期活動佈置與檔期預約公告</h3>
+            <p>感謝各大企業、學校及里民活動的熱烈支持！近期假日佈置檔期較滿，若有開幕拱門、活動球牆或派對佈置需求的客戶，建議提早 1 至 2 週與小編聯繫洽談細節。</p>
+        </div>
+
+        <div class="line-btn-container">
+            <a href="https://lin.ee/709rU13" class="line-btn" target="_blank"> 
+                <svg viewBox="0 0 24 24" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#ffffff" d="M12 2C6.477 2 2 5.923 2 10.75c0 2.766 1.503 5.23 3.844 6.836-.14.523-.526 1.956-.604 2.257-.107.412.15.807.545.719.345-.077 2.146-.484 3.142-.716C10.22 20.15 11.085 20.25 12 20.25c5.523 0 10-3.923 10-8.75S17.523 2 12 2z"/>
+                    <path fill="#06C755" d="M 5.5 9.2 v 4.2 h 2.6 v -0.9 h -1.7 v -3.3 z M 9.0 9.2 v 4.2 h 1.1 v -4.2 z M 11.0 9.2 v 4.2 h 1.1 v -2.2 l 1.6 2.2 h 1.1 v -4.2 h -1.1 v 2.2 l -1.6 -2.2 z M 16.0 9.2 v 4.2 h 2.6 v -0.9 h -1.5 v -0.6 h 1.3 v -0.9 h -1.3 v -0.8 h 1.5 v -1 z"/>
+                </svg>
+                Line 快速諮詢 
+            </a>
+        </div>
+    </main>
+
+    <!-- 側邊導覽列 -->
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="news.html">最新消息</a></li>
+            <li>
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <span>商品列表</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <ul class="dropdown-container" id="productDropdown">
+                    <li><a href="arch.html">氣球柱、拱門、球牆</a></li>
+                    <li><a href="#">氣球花束</a></li>
+                    <li><a href="#">泡泡球</a></li>
+                    <li><a href="#">乳膠氣球</a></li>
+                    <li><a href="#">客製化佈置</a></li>
+                </ul>
+            </li>
+            <li><a href="faq.html">注意事項</a></li>
+            <li><a href="about.html">關於我們</a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- 右下角懸浮 LINE 按鈕 -->
+    <a href="https://lin.ee/709rU13" class="floating-line-btn" target="_blank" title="LINE 快速諮詢">
+        <svg viewBox="0 0 24 24" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#ffffff" d="M12 2C6.477 2 2 5.923 2 10.75c0 2.766 1.503 5.23 3.844 6.836-.14.523-.526 1.956-.604 2.257-.107.412.15.807.545.719.345-.077 2.146-.484 3.142-.716C10.22 20.15 11.085 20.25 12 20.25c5.523 0 10-3.923 10-8.75S17.523 2 12 2z"/>
+            <path fill="#06C755" d="M 5.5 9.2 v 4.2 h 2.6 v -0.9 h -1.7 v -3.3 z M 9.0 9.2 v 4.2 h 1.1 v -4.2 z M 11.0 9.2 v 4.2 h 1.1 v -2.2 l 1.6 2.2 h 1.1 v -4.2 h -1.1 v 2.2 l -1.6 -2.2 z M 16.0 9.2 v 4.2 h 2.6 v -0.9 h -1.5 v -0.6 h 1.3 v -0.9 h -1.3 v -0.8 h 1.5 v -1 z"/>
+        </svg>
+    </a>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleDropdown() {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContainer = document.getElementById('productDropdown');
+            dropdownBtn.classList.toggle('active');
+            dropdownContainer.classList.toggle('active');
+        }
+    </script>
+
+    <!-- 底部資訊欄區塊 -->
+    <footer class="info-footer">
+        <div class="info-container">
+            <div class="info-column">
+                <h3>嶼光製氣LumaireBalloon</h3>
+                <p>服務項目：氣球零售｜各式佈置｜學校活動｜公司合作｜里民活動</p>
+                <p>聯絡電話：0917-817-832</p>
+                <p>地址：新北市三重區長興街99號2樓</p>
+            </div>
+            <div class="info-column">
+                <h3>營業時間</h3>
+                <p>週一至週日 早上11:00 ~ 晚上11:00</p>
+                <p>早上9:00~11:00僅提供預約取貨</p>
+                <p>工作室採預約制(線上客服為24h)</p>
+                <p>為提供每位顧客更完善的服務與諮詢體驗，目前不開放自由參觀。歡迎先來電或加入官方Line與小編聯繫。</p>
+                <p>我們將依您的需求提供專業建議與報價。</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
