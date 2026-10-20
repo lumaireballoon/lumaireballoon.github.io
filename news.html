@@ -113,11 +113,35 @@
             margin-bottom: 15px;
             letter-spacing: 2px;
         }
+        .news-block h3 a {
+            color: #5c4d42;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .news-block h3 a:hover {
+            color: #a88b74;
+        }
         .news-block p {
             color: #735d4d;
             font-size: 15px;
             line-height: 2;
             margin: 8px 0;
+        }
+        .read-more-link {
+            display: inline-block;
+            color: #8c7361;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #8c7361;
+            padding-bottom: 2px;
+            margin-top: 8px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .read-more-link:hover {
+            color: #5c4d42;
+            border-color: #5c4d42;
         }
 
         /* 置頂樣式 (專屬標籤與外框，方便識別) */
@@ -241,44 +265,65 @@
         <h2>最新消息</h2>
     </div>
 
-    <!-- 最新消息 內容區塊 (由下方 JavaScript 自動控制每頁顯示 5 則) -->
+    <!-- ==========================================================================
+       【未來如何新增訊息與設定置頂/隱藏的操作說明】：
+       
+       1. 【新增一則新訊息】：
+          請直接在下方複製一塊整段的 <div class="news-block">...</div> 貼在最上方。
+          並記得將 <h3> 裡面的 <a href="您的詳細頁面.html"> 換成該則消息對應的獨立內文頁檔名。
+
+       2. 【如何設定置頂】：
+          在該則 <div class="news-block"> 的後面加上類別名稱 `pinned`（變成：<div class="news-block pinned">），
+          並在標題文字後面加上 <span class="pinned-tag">置頂</span>。
+
+       3. 【如何暫時隱藏置頂公告】：
+          當不需要該則置頂公告時，只需在該區塊加上隱藏屬性 `style="display: none;"`
+          （例如：<div class="news-block pinned" style="display: none;">），
+          未來想重新顯示時，只要把這行屬性刪除即可。
+       ========================================================================== -->
     <main class="news-content-section" id="newsContainer">
         
-        <!-- 【置頂公告範例】：若要置頂，請在 class 加上 pinned，並在標題旁加上 <span class="pinned-tag">置頂</span> 隱藏加入style="display: none;"。 -->
+        <!-- 【置頂公告範例】 -->
         <div class="news-block pinned">
             <div class="news-date">2026.06.10</div>
-            <h3>【公告】✨工作室全新官網正式上線！✨<span class="pinned-tag">置頂</span></h3>
-            <p>📌 營業時間與須知：工作室採預約制，恕不開放自由參觀，歡迎多加利用官方 Line 洽詢！」</p>
+            <h3><a href="news-detail-1.html">【公告】✨工作室全新官網正式上線！✨</a><span class="pinned-tag">置頂</span></h3>
+            <p>📌 營業時間與須知：工作室採預約制，恕不開放自由參觀，歡迎多加利用官方 Line 洽詢！</p>
+            <a href="news-detail-1.html" class="read-more-link">閱讀全文 &rarr;</a>
         </div>
 
         <div class="news-block">
             <div class="news-date">2026.06.01</div>
-            <h3>工作室全新官網正式上線！</h3>
+            <h3><a href="#">工作室全新官網正式上線！</a></h3>
             <p>嶼光製氣全新官方網站與注意事項頁面正式啟用！未來所有氣球佈置作品、最新活動公告與預約須知都將在此同步更新，歡迎多加利用線上客服與官方 Line 洽詢專屬佈置方案。</p>
+            <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
         </div>
 
         <div class="news-block">
             <div class="news-date">2026.05.15</div>
-            <h3>客製化氣球花束與泡泡球預約開放中</h3>
+            <h3><a href="#">客製化氣球花束與泡泡球預約開放中</a></h3>
             <p>為提供每位顧客更精緻的節慶與送禮體驗，即日起開放各式客製化氣球花束與泡泡球預訂。因手工製作耗時，請至少提前一天完成預約與匯款，以便我們為您保留完美的製作檔期。</p>
+            <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
         </div>
 
         <div class="news-block">
             <div class="news-date">2026.04.01</div>
-            <h3>近期活動佈置與檔期預約公告</h3>
+            <h3><a href="#">近期活動佈置與檔期預約公告</a></h3>
             <p>感謝各大企業、學校及里民活動的熱烈支持！近期假日佈置檔期較滿，若有開幕拱門、活動球牆或派對佈置需求的客戶，建議提早 1 至 2 週與小編聯繫洽談細節。</p>
+            <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
         </div>
 
         <div class="news-block">
             <div class="news-date">2026.03.10</div>
-            <h3>春季校園活動氣球佈置成果分享</h3>
-            <p>很榮幸參與本季多所學校的畢業季與社團成果發表會佈置，運用柔和的莫蘭迪色系與環保乳膠氣球，打造出兼具質感與歡樂氛圍的拍照打卡牆！</p>
+            <h3><a href="#">春季校園活動氣球佈置成果分享</a></h3>
+            <p>很榮幸參與本季多所學校的畢業季與社團成果發表會佈置，運用柔和的莫蘭迪色系與環保乳膠氣球，打造出兼具質感與歡樂沸騰的拍照打卡牆！</p>
+            <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
         </div>
 
         <div class="news-block">
             <div class="news-date">2026.02.14</div>
-            <h3>情人節限定愛心空飄氣球預告</h3>
+            <h3><a href="#">情人節限定愛心空飄氣球預告</a></h3>
             <p>浪漫情人節即將到來，工作室推出限定愛心空飄氣球禮盒組，數量有限，歡迎提前預訂給另一半一個大大的驚喜。</p>
+            <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
         </div>
 
     </main>
